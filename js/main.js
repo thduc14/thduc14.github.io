@@ -53,10 +53,8 @@ async function chuyenTrang(idTrang) {
         closeMobileMenu();
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Nếu là trang Tiến độ, gọi hàm load danh sách PDF
-        if (idTrang === 'tien-do') {
-            loadGitHubPDFs(1); // Load mặc định tab tuần 1
-        }
+        // Không còn sử dụng document load chung, xoá loadGitHubPDFs() ở đây vì mình sẽ fetch PDF khi openModal
+
 
     } catch (error) {
         console.error('Lỗi khi tải trang:', error);
@@ -155,6 +153,15 @@ function openModal(modalId) {
     if (!modal) return;
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+
+    // Xác định tuần từ modalId (ví dụ: modal-1 -> tuần 1)
+    const weekMatch = modalId.match(/modal-(\d+)/);
+    if (weekMatch && weekMatch[1]) {
+        const week = weekMatch[1];
+        if (!dacapNhatGithubPDF[week]) {
+            loadGitHubPDFs(week);
+        }
+    }
 }
 
 function closeModal(modalId) {
@@ -181,18 +188,66 @@ const GITHUB_OWNER = 'thduc14'; // Thay bằng username của bạn
 const GITHUB_REPO = 'thduc14.github.io'; // Thay bằng tên repo của bạn
 const BRANCH_NAME = 'main';
 
-function chuyenTabTuan(week) {
-    // 1. Cập nhật UI Tabs
-    document.querySelectorAll('.week-tab').forEach(btn => btn.classList.remove('active'));
-    document.querySelector(`.week-tab[data-week="${week}"]`).classList.add('active');
+async function loadGitHubPDFs(week) {
+    const modalDocsEl = document.getElementById(`modal-docs-${week}`);
+    if (!modalDocsEl) return;
+    
+    // Tạo vùng HTML chờ loading nếu đang load
+    modalDocsEl.innerHTML = `
+        <div class="docs-loading">
+            <div class="spinner-small" style="width: 24px; height: 24px; border: 3px solid var(--gray-200); border-top-color: var(--pink); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 10px;"></div>
+            <p style="font-size: 13px; color: var(--gray-400); text-align: center;">Đang tải tài liệu từ GitHub...</p>
+        </div>
+    `;
 
-    // 2. Chuyển Panel
-    document.querySelectorAll('.week-panel').forEach(panel => panel.classList.remove('active'));
-    document.getElementById(`week-panel-${week}`).classList.add('active');
+    try {
+        const folderPath = `input/week${week}`;
+        const response = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${folderPath}?ref=${BRANCH_NAME}`);
+        
+        if (!response.ok) {
+            if (response.status === 404) {
+                console.warn(`Thư mục ${folderPath} chưa có.`);
+            }
+            dacapNhatGithubPDF[week] = true;
+            modalDocsEl.innerHTML = `<div class="docs-empty" style="text-align: center; padding: 20px;"><p style="font-size: 13px; color: var(--gray-400);">Chưa có tài liệu nào trong thư mục <b>input/week${week}</b></p></div>`;
+            return;
+        }
 
-    // 3. Tải file nếu chưa tải
-    if (!dacapNhatGithubPDF[week]) {
-        loadGitHubPDFs(week);
+        const data = await response.json();
+        const pdfFiles = Array.isArray(data) ? data.filter(file => file.name.toLowerCase().endsWith('.pdf')) : [];
+
+        if (pdfFiles.length === 0) {
+            modalDocsEl.innerHTML = `<div class="docs-empty" style="text-align: center; padding: 20px;"><p style="font-size: 13px; color: var(--gray-400);">Chưa có tài liệu nào trong thư mục <b>input/week${week}</b></p></div>`;
+        } else {
+            const html = pdfFiles.map(file => {
+                const rawUrl = file.download_url || `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${BRANCH_NAME}/${file.path}`;
+                
+                let sizeText = '';
+                if (file.size) {
+                    const kb = file.size / 1024;
+                    if (kb > 1024) sizeText = (kb / 1024).toFixed(1) + ' MB';
+                    else sizeText = kb.toFixed(0) + ' KB';
+                }
+
+                return `
+                <a href="${rawUrl}" target="_blank" class="file-card" style="display: flex; align-items: center; gap: 10px; padding: 11px; background: var(--white); border: 1px solid var(--gray-200); border-radius: 9px; text-decoration: none;">
+                    <div class="file-icon pdf" style="width: 40px; height: 40px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; background: #fff0f0; color: #ef4444;">PDF</div>
+                    <div class="file-info" style="flex: 1; min-width: 0;">
+                        <strong style="display: block; font-size: 12px; font-weight: 700; color: var(--gray-700); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${file.name}</strong>
+                        <span style="font-size: 11px; color: var(--gray-400);">${sizeText}</span>
+                    </div>
+                    <svg style="color: var(--gray-300);" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                </a>`;
+            }).join('');
+            
+            modalDocsEl.innerHTML = `<div class="file-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 9px;">${html}</div>`;
+        }
+
+        dacapNhatGithubPDF[week] = true;
+
+    } catch (error) {
+        console.error('Lỗi khi fetch từ GitHub:', error);
+        modalDocsEl.innerHTML = `<div class="docs-empty" style="text-align: center; padding: 20px;"><p style="font-size: 13px; color: #ef4444;">Lỗi kết nối GitHub</p></div>`;
     }
 }
 

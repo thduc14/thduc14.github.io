@@ -78,6 +78,162 @@
         </div>
     </div>
 
+    <!-- ═══════════════════════════════════════════
+         MODAL TIẾN ĐỘ 1 -> 4
+    ═══════════════════════════════════════════ -->
+    <!-- MODAL 1 -->
+    <div id="modal-1" class="overlay hidden">
+        <div class="overlay-backdrop" onclick="closeModal('modal-1')"></div>
+        <div class="modal">
+            <div class="modal-header violet">
+                <div class="modal-header-meta">
+                    <span class="modal-badge">Giai đoạn 1</span>
+                    <span class="modal-date">📅 12/02 – 28/02</span>
+                </div>
+                <h3>Khởi động dự án</h3>
+                <button class="close-btn light" onclick="closeModal('modal-1')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-summary">
+                    <p>Giai đoạn này tập trung vào việc định hình nhóm, chốt đề tài và lên các quy tắc làm việc chung để chuẩn bị cho quá trình code.</p>
+                    <div class="progress-bar-wrap">
+                        <div class="progress-label"><span>Tiến độ công việc</span><strong>100%</strong></div>
+                        <div class="progress-track"><div class="progress-fill done-fill" style="width:100%"></div></div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h4><span class="section-icon green">✓</span> Công việc đã thực hiện</h4>
+                    <div class="task-list">
+                        <div class="task-item done-task">
+                            <svg class="task-check" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <div><strong>Tổ chức họp nhóm (Kick-off) & Chốt đề tài</strong><p>Đã thống nhất lựa chọn đề tài Quản lý Sự kiện.</p></div>
+                        </div>
+                        <div class="task-item done-task">
+                            <svg class="task-check" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <div><strong>Khởi tạo môi trường làm việc</strong><p>Tạo Repository trên Github, thiết lập Trello.</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h4><span class="section-icon blue">📎</span> Tài liệu đính kèm (Tuần 1)</h4>
+                    <!-- VÙNG RENDER PDF -->
+                    <div id="modal-docs-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2 -->
+    <div id="modal-2" class="overlay hidden">
+        <div class="overlay-backdrop" onclick="closeModal('modal-2')"></div>
+        <div class="modal">
+            <div class="modal-header sky">
+                <div class="modal-header-meta">
+                    <span class="modal-badge">Giai đoạn 2</span>
+                    <span class="modal-date">📅 Đang tiến hành</span>
+                </div>
+                <h3>Phân tích và thiết kế</h3>
+                <button class="close-btn light" onclick="closeModal('modal-2')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-summary">
+                    <p>Giai đoạn phân tích yêu cầu, thiết kế cơ sở dữ liệu và xây dựng wireframe giao diện hệ thống.</p>
+                    <div class="progress-bar-wrap">
+                        <div class="progress-label"><span>Tiến độ công việc</span><strong>60%</strong></div>
+                        <div class="progress-track"><div class="progress-fill progress-fill-sky" style="width:60%"></div></div>
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <h4><span class="section-icon green">✓</span> Công việc đã thực hiện</h4>
+                    <div class="task-list">
+                        <div class="task-item done-task">
+                            <svg class="task-check" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <div><strong>Viết tài liệu Business Case</strong><p>Phân tích bối cảnh dự án, xác định phạm vi.</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <h4><span class="section-icon blue">📎</span> Tài liệu đính kèm (Tuần 2)</h4>
+                    <!-- VÙNG RENDER PDF -->
+                    <div id="modal-docs-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3 -->
+    <div id="modal-3" class="overlay hidden">
+        <div class="overlay-backdrop" onclick="closeModal('modal-3')"></div>
+        <div class="modal">
+            <div class="modal-header slate">
+                <div class="modal-header-meta">
+                    <span class="modal-badge">Giai đoạn 3</span>
+                    <span class="modal-date">📅 Sắp tới</span>
+                </div>
+                <h3>Thực hiện đồ án</h3>
+                <button class="close-btn light" onclick="closeModal('modal-3')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-summary">
+                    <p>Giai đoạn lập trình frontend, backend và thực hiện kiểm thử toàn diện hệ thống.</p>
+                    <div class="progress-bar-wrap">
+                        <div class="progress-label"><span>Tiến độ công việc</span><strong>0%</strong></div>
+                        <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <h4><span class="section-icon gray">📋</span> Công việc dự kiến</h4>
+                    <div class="task-list">
+                        <div class="task-item pending-task">
+                            <svg class="task-pending" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            <div><strong>Phát triển Web Application</strong><p>Xây dựng frontend, backend và tích hợp Cổng thanh toán.</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <h4><span class="section-icon blue">📎</span> Tài liệu đính kèm (Tuần 3)</h4>
+                    <!-- VÙNG RENDER PDF -->
+                    <div id="modal-docs-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 4 -->
+    <div id="modal-4" class="overlay hidden">
+        <div class="overlay-backdrop" onclick="closeModal('modal-4')"></div>
+        <div class="modal">
+            <div class="modal-header slate">
+                <div class="modal-header-meta">
+                    <span class="modal-badge">Giai đoạn 4</span>
+                    <span class="modal-date">📅 Sắp tới</span>
+                </div>
+                <h3>Báo cáo & Nộp đồ án</h3>
+                <button class="close-btn light" onclick="closeModal('modal-4')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-summary">
+                    <p>Giai đoạn hoàn thiện tài liệu, quay video demo, chuẩn bị báo cáo và nộp đồ án chính thức.</p>
+                </div>
+                <div class="modal-section">
+                    <h4><span class="section-icon blue">📎</span> Tài liệu đính kèm (Tuần 4)</h4>
+                    <!-- VÙNG RENDER PDF -->
+                    <div id="modal-docs-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- JS Files -->
     <script src="js/main.js"></script>
 

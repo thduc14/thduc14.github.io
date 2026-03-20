@@ -5,65 +5,6 @@
     <p class="page-desc">Tiến độ chi tiết từng giai đoạn của nhóm Spring</p>
 </div>
 
-<!-- THÊM MỚI: TÀI LIỆU THEO TUẦN -->
-<div class="docs-section">
-    <div class="docs-section-header">
-        <h3>Tài liệu theo tuần</h3>
-        <p>Danh sách các file PDF báo cáo và tài liệu (được tải tự động từ thư mục `input/` trên GitHub)</p>
-    </div>
-
-    <!-- TABS -->
-    <div class="week-tabs">
-        <button class="week-tab active" data-week="1" onclick="chuyenTabTuan(1)">Tuần 1</button>
-        <button class="week-tab" data-week="2" onclick="chuyenTabTuan(2)">Tuần 2</button>
-        <button class="week-tab" data-week="3" onclick="chuyenTabTuan(3)">Tuần 3</button>
-        <!-- Có thể thêm Tuần 4, 5... ở đây sau này -->
-    </div>
-
-    <!-- CONTENT PANELS -->
-    <div class="week-panels">
-        <!-- Panel Tuần 1 -->
-        <div class="week-panel active" id="week-panel-1">
-            <div class="docs-loading">
-                <div class="spinner-small"></div>
-                <p>Đang tải tài liệu tuần 1 từ GitHub...</p>
-            </div>
-            <div class="pdf-grid" id="pdf-grid-1" style="display: none;"></div>
-            <div class="docs-empty" id="docs-empty-1" style="display: none;">
-                <div class="docs-empty-icon">📂</div>
-                <p>Chưa có tài liệu nào trong thư mục <b>input/week1</b></p>
-            </div>
-        </div>
-
-        <!-- Panel Tuần 2 -->
-        <div class="week-panel" id="week-panel-2">
-            <div class="docs-loading">
-                <div class="spinner-small"></div>
-                <p>Đang tải tài liệu tuần 2 từ GitHub...</p>
-            </div>
-            <div class="pdf-grid" id="pdf-grid-2" style="display: none;"></div>
-            <div class="docs-empty" id="docs-empty-2" style="display: none;">
-                <div class="docs-empty-icon">📂</div>
-                <p>Chưa có tài liệu nào trong thư mục <b>input/week2</b></p>
-            </div>
-        </div>
-
-        <!-- Panel Tuần 3 -->
-        <div class="week-panel" id="week-panel-3">
-            <div class="docs-loading">
-                <div class="spinner-small"></div>
-                <p>Đang tải tài liệu tuần 3 từ GitHub...</p>
-            </div>
-            <div class="pdf-grid" id="pdf-grid-3" style="display: none;"></div>
-            <div class="docs-empty" id="docs-empty-3" style="display: none;">
-                <div class="docs-empty-icon">📂</div>
-                <p>Chưa có tài liệu nào trong thư mục <b>input/week3</b></p>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- KẾT THÚC THÊM MỚI -->
-
 <div class="timeline">
     <div class="timeline-item done">
         <div class="timeline-dot">1</div>

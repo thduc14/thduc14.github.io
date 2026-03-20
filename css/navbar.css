@@ -14,7 +14,7 @@
 }
 
 #navbar.transparent {
-  background: transparent;
+  background: rgba(0, 0, 0, 0.25);
   border-bottom-color: transparent;
   box-shadow: none;
 }
