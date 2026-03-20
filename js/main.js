@@ -84,15 +84,10 @@ function updateNavUI(idTrang) {
 }
 
 function updateNavbar() {
+    // Không còn dùng navbar transparent
     const navbar = document.getElementById('navbar');
-    if (!navbar) return;
-    if (tabHienTai === 'trang-chu' && window.scrollY < 60) {
-        navbar.classList.add('transparent');
-    } else {
-        navbar.classList.remove('transparent');
-    }
+    if (navbar) navbar.classList.remove('transparent');
 }
-window.addEventListener('scroll', updateNavbar);
 
 /* ═══════════════════════════════════════════
    MOBILE MENU
@@ -230,17 +225,19 @@ async function loadGitHubPDFs(week) {
                 }
 
                 return `
-                <a href="${rawUrl}" target="_blank" class="file-card" style="display: flex; align-items: center; gap: 10px; padding: 11px; background: var(--white); border: 1px solid var(--gray-200); border-radius: 9px; text-decoration: none;">
-                    <div class="file-icon pdf" style="width: 40px; height: 40px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; background: #fff0f0; color: #ef4444;">PDF</div>
-                    <div class="file-info" style="flex: 1; min-width: 0;">
-                        <strong style="display: block; font-size: 12px; font-weight: 700; color: var(--gray-700); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${file.name}</strong>
-                        <span style="font-size: 11px; color: var(--gray-400);">${sizeText}</span>
+                <a href="${rawUrl}" target="_blank" class="pdf-card">
+                    <div class="pdf-icon">PDF</div>
+                    <div class="pdf-info">
+                        <strong class="pdf-name">${file.name}</strong>
+                        <span class="pdf-size">${sizeText}</span>
                     </div>
-                    <svg style="color: var(--gray-300);" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    <svg class="pdf-download" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
                 </a>`;
             }).join('');
             
-            modalDocsEl.innerHTML = `<div class="file-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 9px;">${html}</div>`;
+            modalDocsEl.innerHTML = `<div class="pdf-grid">${html}</div>`;
         }
 
         dacapNhatGithubPDF[week] = true;

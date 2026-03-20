@@ -13,12 +13,6 @@
   transition: background var(--ease), border-color var(--ease), box-shadow var(--ease);
 }
 
-#navbar.transparent {
-  background: rgba(0, 0, 0, 0.25);
-  border-bottom-color: transparent;
-  box-shadow: none;
-}
-
 .nav-inner {
   max-width: 1160px;
   margin: 0 auto;
@@ -60,40 +54,6 @@
 .nav-tab:hover  { color: var(--pink); background: var(--pink-bg); }
 .nav-tab.active { color: var(--pink); background: var(--pink-bg); }
 
-/* ── FIX: Transparent navbar — text shadow cho dễ đọc ── */
-#navbar.transparent .nav-logo {
-  color: #fff;
-  text-shadow: 0 2px 12px rgba(0,0,0,.6);
-}
-#navbar.transparent .logo-dot {
-  color: rgba(255,255,255,.85);
-}
-
-#navbar.transparent .nav-tab {
-  color: rgba(255,255,255,.85);
-  text-shadow: 0 1px 8px rgba(0,0,0,.5);
-}
-#navbar.transparent .nav-tab:hover {
-  color: #fff;
-  background: rgba(255,255,255,.15);
-}
-#navbar.transparent .nav-tab.active {
-  color: #fff;
-  background: rgba(255,255,255,.12);
-  border-bottom: 2px solid rgba(255,255,255,.7);
-  border-radius: 0;
-}
-
-#navbar.transparent .btn-contact {
-  background: rgba(255,255,255,.2);
-  backdrop-filter: blur(8px);
-  text-shadow: 0 1px 4px rgba(0,0,0,.2);
-}
-#navbar.transparent .btn-contact:hover {
-  background: rgba(255,255,255,.35);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(255,255,255,.2);
-}
 
 .btn-contact {
   height: 36px;
