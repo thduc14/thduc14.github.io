@@ -1,0 +1,47 @@
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: var(--nav-h);
+    left: 0; right: 0;
+    background: rgba(255,255,255,.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--pink-border);
+    padding: 10px;
+    gap: 3px;
+  }
+  .nav-tab { height: 42px; text-align: left; padding: 0 14px; border-radius: 9px; }
+  .btn-contact { display: none; }
+  .hamburger   { display: flex; }
+
+  .intro-grid { grid-template-columns: 1fr; gap: 36px; }
+  .file-grid  { grid-template-columns: 1fr; }
+
+  .timeline-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .timeline-meta { min-width: unset; }
+  .btn-detail { width: 100%; justify-content: center; }
+
+  .members-grid  { gap: 14px; }
+  .member-card   { width: calc(50% - 7px); min-width: unset; max-width: unset; }
+  .contract-grid { grid-template-columns: 1fr; }
+
+  .week-tabs { flex-wrap: wrap; }
+  .pdf-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .members-grid { gap: 12px; }
+  .member-card  { width: 100%; max-width: 100%; }
+  .intro-stats  { grid-template-columns: 1fr 1fr; }
+  .modal-header { padding: 20px 20px 18px; }
+  .modal-header h3 { font-size: 20px; }
+}

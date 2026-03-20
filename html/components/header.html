@@ -1,0 +1,21 @@
+<nav id="navbar">
+    <div class="nav-inner">
+        <a class="nav-logo" onclick="chuyenTrang('trang-chu')">
+            Spring <span class="logo-dot">✦</span>
+        </a>
+
+        <div class="nav-links" id="nav-links">
+            <button class="nav-tab active" data-tab="trang-chu" onclick="chuyenTrang('trang-chu')">Trang chủ</button>
+            <button class="nav-tab" data-tab="gioi-thieu" onclick="chuyenTrang('gioi-thieu')">Về chúng tôi</button>
+            <button class="nav-tab" data-tab="do-an" onclick="chuyenTrang('do-an')">Dự án</button>
+            <button class="nav-tab" data-tab="tien-do" onclick="chuyenTrang('tien-do')">Tiến độ</button>
+            <button class="nav-tab" data-tab="hop-dong" onclick="chuyenTrang('hop-dong')">Thỏa thuận</button>
+        </div>
+
+        <button class="btn-contact" onclick="chuyenTrang('gioi-thieu')">Liên hệ</button>
+
+        <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>

@@ -1,0 +1,113 @@
+/* ═══════════════════════════════════════════
+   VARIABLES & RESET
+═══════════════════════════════════════════ */
+:root {
+  --pink:        #e85588;
+  --pink-light:  #f07baa;
+  --pink-dark:   #c73d6e;
+  --pink-bg:     #fff0f5;
+  --pink-border: #fccde0;
+
+  --mint:     #3fbe8c;
+  --mint-bg:  #edfaf3;
+
+  --sky:      #3aaced;
+  --sky-bg:   #edf6fd;
+
+  --gray-50:  #fdf8f9;
+  --gray-100: #f5edf0;
+  --gray-200: #e8d8de;
+  --gray-300: #d4b8c2;
+  --gray-400: #b08a98;
+  --gray-500: #8b6572;
+  --gray-600: #6b4d58;
+  --gray-700: #4e3540;
+  --gray-800: #321e28;
+  --white:    #ffffff;
+
+  --radius:    14px;
+  --radius-sm: 9px;
+  --radius-lg: 20px;
+
+  --shadow-sm: 0 1px 4px rgba(180,80,110,.06);
+  --shadow-md: 0 4px 16px rgba(180,80,110,.10);
+  --shadow-lg: 0 12px 36px rgba(180,80,110,.13);
+  --shadow-xl: 0 24px 64px rgba(180,80,110,.16);
+
+  --font: 'Be Vietnam Pro', sans-serif;
+
+  --nav-h: 64px;
+  --ease: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: linear-gradient(180deg, var(--gray-50) 0%, #fef5f8 50%, var(--gray-50) 100%);
+  background-attachment: fixed;
+  color: var(--gray-700);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a   { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+ul { list-style: none; }
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════ */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--gray-100); }
+::-webkit-scrollbar-thumb { background: var(--pink-light); border-radius: 5px; }
+
+/* ═══════════════════════════════════════════
+   MAIN & PAGES
+═══════════════════════════════════════════ */
+main { flex: 1; padding-top: var(--nav-h); }
+
+.page { display: none; animation: fadeUp 0.35s ease both; }
+.page.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   PAGE HEADER (shared across pages)
+═══════════════════════════════════════════ */
+.page-header {
+  text-align: center;
+  padding: 60px 24px 36px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.page-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 10px;
+}
+
+.page-title {
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 800;
+  color: var(--gray-800);
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.page-desc {
+  font-size: 15px;
+  color: var(--gray-400);
+  line-height: 1.65;
+}

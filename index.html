@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring — Nhóm Đồ Án IS208</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/upload.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- NAVBAR INJECTED HERE -->
+    <div id="header-container"></div>
+
+    <!-- MAIN CONTENT INJECTED HERE -->
+    <main id="main-content">
+        <!-- Nội dung fragment được tải động vào đây bằng fetch CSS -->
+        <section class="page active" style="min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+            <div style="text-align: center;">
+                <div class="spinner-small" style="width: 32px; height: 32px; border: 3px solid var(--gray-200); border-top-color: var(--pink); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px;"></div>
+                <p style="color: var(--gray-400); font-size: 14px;">Đang tải nội dung website...</p>
+                <p style="color: #ef4444; font-size: 13px; margin-top: 10px;">Lưu ý: Mở bằng Live Server để trang hoạt động đúng cấu trúc.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER INJECTED HERE -->
+    <div id="footer-container"></div>
+
+
+    <!-- ═══════════════════════════════════════════
+         CÁC MODAL VÀ POPUP CHUNG VẪN ĐỂ Ở TRANG CHỦ HOẶC SẼ CHUYỂN
+         Vì dễ gọi js global. Đã rút ngắn index.html
+    ═══════════════════════════════════════════ -->
+
+    <!-- POPUP THÀNH VIÊN -->
+    <div id="popup-thanh-vien" class="overlay hidden">
+        <div class="overlay-backdrop" onclick="dongPopupThanhVien()"></div>
+        <div class="popup-card">
+            <div class="popup-header">
+                <div>
+                    <h3 id="popup-ten">Tên thành viên</h3>
+                    <p id="popup-vaitro">Vai trò</p>
+                </div>
+                <button class="close-btn" onclick="dongPopupThanhVien()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="popup-row strength">
+                    <div class="popup-row-icon">💪</div>
+                    <div>
+                        <strong>Điểm mạnh</strong>
+                        <p id="popup-manh">...</p>
+                    </div>
+                </div>
+                <div class="popup-row improve">
+                    <div class="popup-row-icon">🌱</div>
+                    <div>
+                        <strong>Cần cải thiện</strong>
+                        <p id="popup-yeu">...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Files -->
+    <script src="js/main.js"></script>
+
+</body>
+</html>

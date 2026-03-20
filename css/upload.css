@@ -1,0 +1,176 @@
+/* ═══════════════════════════════════════════
+   PDF DISPLAY SECTION (Tài liệu theo tuần)
+═══════════════════════════════════════════ */
+.docs-section {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.docs-section-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.docs-section-header h3 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin-bottom: 8px;
+}
+
+.docs-section-header p {
+  font-size: 14px;
+  color: var(--gray-400);
+}
+
+/* Week Tabs */
+.week-tabs {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.week-tab {
+  padding: 9px 22px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-400);
+  background: var(--gray-100);
+  border: 1.5px solid transparent;
+  transition: all var(--ease);
+}
+.week-tab:hover {
+  color: var(--pink);
+  background: var(--pink-bg);
+  border-color: var(--pink-border);
+}
+.week-tab.active {
+  color: #fff;
+  background: var(--pink);
+  border-color: var(--pink);
+  box-shadow: 0 4px 14px rgba(232,85,136,.25);
+}
+
+/* Week Content Panels */
+.week-panel {
+  display: none;
+  animation: fadeUp 0.3s ease both;
+}
+.week-panel.active {
+  display: block;
+}
+
+/* PDF Cards Grid */
+.pdf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.pdf-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  transition: all var(--ease);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+.pdf-card:hover {
+  border-color: var(--pink-light);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.pdf-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  flex-shrink: 0;
+}
+
+.pdf-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pdf-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-800);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.pdf-size {
+  font-size: 11px;
+  color: var(--gray-400);
+}
+
+.pdf-download {
+  color: var(--gray-300);
+  flex-shrink: 0;
+  transition: color var(--ease);
+}
+.pdf-card:hover .pdf-download {
+  color: var(--pink);
+}
+
+/* Empty State */
+.docs-empty {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--white);
+  border: 2px dashed var(--gray-200);
+  border-radius: var(--radius);
+}
+
+.docs-empty-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  opacity: .6;
+}
+
+.docs-empty p {
+  font-size: 13px;
+  color: var(--gray-400);
+}
+
+/* Loading State */
+.docs-loading {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.docs-loading .spinner-small {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--gray-200);
+  border-top-color: var(--pink);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 10px;
+}
+
+.docs-loading p {
+  font-size: 13px;
+  color: var(--gray-400);
+}

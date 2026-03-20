@@ -1,0 +1,23 @@
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  background: linear-gradient(135deg, var(--gray-800) 0%, #2a1520 50%, #3d222e 100%);
+  color: var(--gray-400);
+  padding: 36px 24px;
+  margin-top: auto;
+}
+
+.footer-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.footer-logo { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 3px; }
+footer p      { font-size: 13px; }
+.footer-class { font-size: 11px; color: var(--gray-500); }
