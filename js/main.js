@@ -251,9 +251,54 @@ async function loadGitHubPDFs(week) {
 
 
 /* ═══════════════════════════════════════════
+   PROGRESS DATA FETCH
+═══════════════════════════════════════════ */
+async function fetchAndRenderProgress() {
+    try {
+        const response = await fetch('data/progress.json');
+        if (!response.ok) throw new Error('Không thể tải dữ liệu tiến độ');
+        const data = await response.json();
+
+        for (let week = 1; week <= 4; week++) {
+            const weekData = data[week];
+            if (!weekData) continue;
+
+            const tasks = weekData.tasks || [];
+            const totalTasks = weekData.totalTasks || 0;
+            const percentage = totalTasks > 0 ? Math.min(100, Math.round((tasks.length / totalTasks) * 100)) : 0;
+
+            const modal = document.getElementById(`modal-${week}`);
+            if (!modal) continue;
+
+            const progressLabelStr = modal.querySelector('.progress-label strong');
+            const progressFill = modal.querySelector('.progress-fill');
+            if (progressLabelStr) progressLabelStr.textContent = `${percentage}%`;
+            if (progressFill) progressFill.style.width = `${percentage}%`;
+
+            const taskListContainer = modal.querySelector('.task-list');
+            if (taskListContainer) {
+                if (tasks.length === 0) {
+                    taskListContainer.innerHTML = `<p style="font-size: 14px; color: var(--gray-500); padding: 5px 0 10px;">Chưa có công việc nào được hoàn thành.</p>`;
+                } else {
+                    taskListContainer.innerHTML = tasks.map(task => `
+                        <div class="task-item done-task">
+                            <svg class="task-check" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <div><strong>${task.title}</strong><p>${task.desc}</p></div>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Lỗi khi tải dữ liệu tiến độ:', error);
+    }
+}
+
+/* ═══════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded', () => {
+    fetchAndRenderProgress();
     // Trích xuất hash từ URL nếu có (ví dụ: index.html#tien-do)
     let hash = window.location.hash.replace('#', '');
     if (routes[hash]) {

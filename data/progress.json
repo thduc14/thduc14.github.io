@@ -1,0 +1,32 @@
+{
+  "1": {
+    "totalTasks": 2,
+    "tasks": [
+      {
+        "title": "Tổ chức họp nhóm (Kick-off) & Chốt đề tài",
+        "desc": "Đã thống nhất lựa chọn đề tài Quản lý Sự kiện."
+      },
+      {
+        "title": "Khởi tạo môi trường làm việc",
+        "desc": "Tạo Repository trên Github, thiết lập Trello."
+      }
+    ]
+  },
+  "2": {
+    "totalTasks": 2,
+    "tasks": [
+      {
+        "title": "Viết tài liệu Business Case",
+        "desc": "Phân tích bối cảnh dự án, xác định phạm vi."
+      }
+    ]
+  },
+  "3": {
+    "totalTasks": 5,
+    "tasks": []
+  },
+  "4": {
+    "totalTasks": 3,
+    "tasks": []
+  }
+}
