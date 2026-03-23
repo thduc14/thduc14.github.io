@@ -301,3 +301,22 @@
   left: 0;
   color: var(--pink-light);
 }
+
+/* ═══════════════════════════════════════════
+   AGREEMENT LAYOUT
+═══════════════════════════════════════════ */
+.agreement-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .agreement-layout {
+    grid-template-columns: 1fr;
+  }
+}
