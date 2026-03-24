@@ -1,5 +1,6 @@
 {
   "1": {
+    "status": 1,
     "totalTasks": 2,
     "tasks": [
       {
@@ -17,6 +18,7 @@
     ]
   },
   "2": {
+    "status": 2,
     "totalTasks": 2,
     "tasks": [
       {
@@ -26,10 +28,12 @@
     ]
   },
   "3": {
+    "status": 3,
     "totalTasks": 5,
     "tasks": []
   },
   "4": {
+    "status": 3,
     "totalTasks": 3,
     "tasks": []
   }

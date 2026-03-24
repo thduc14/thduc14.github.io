@@ -51,6 +51,9 @@ async function chuyenTrang(idTrang) {
         updateNavUI(idTrang);
         updateNavbar();
         closeMobileMenu();
+        if (idTrang === 'tien-do' && window.progressData) {
+            updateTimelineUI();
+        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         // Không còn sử dụng document load chung, xoá loadGitHubPDFs() ở đây vì mình sẽ fetch PDF khi openModal
@@ -253,11 +256,71 @@ async function loadGitHubPDFs(week) {
 /* ═══════════════════════════════════════════
    PROGRESS DATA FETCH
 ═══════════════════════════════════════════ */
+
+function updateTimelineUI() {
+    const data = window.progressData;
+    if (!data) return;
+    
+    const timelineItems = document.querySelectorAll('#tien-do .timeline-item');
+    if (!timelineItems.length) return;
+
+    timelineItems.forEach((item, index) => {
+        const week = index + 1;
+        const weekData = data[week];
+        if (!weekData || !weekData.status) return;
+        
+        const status = weekData.status; 
+        
+        const dot = item.querySelector('.timeline-dot');
+        const card = item.querySelector('.timeline-card');
+        const statusSpan = item.querySelector('.timeline-status');
+        const btn = item.querySelector('.btn-detail');
+        const weekText = item.querySelector('.timeline-week');
+        
+        item.className = 'timeline-item';
+        if (dot) dot.className = 'timeline-dot';
+        if (card) card.className = 'timeline-card';
+        if (statusSpan) statusSpan.className = 'timeline-status';
+        if (btn) btn.className = 'btn-detail';
+        if (weekText) weekText.className = 'timeline-week';
+        
+        if (status === 1) { 
+            item.classList.add('done');
+            if (statusSpan) {
+                statusSpan.classList.add('done-status');
+                statusSpan.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>\nĐã hoàn thành';
+            }
+        } else if (status === 2) { 
+            item.classList.add('in-progress');
+            if (dot) dot.classList.add('pulse');
+            if (statusSpan) {
+                statusSpan.classList.add('progress-status');
+                statusSpan.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg>\nĐang tiến hành';
+            }
+        } else if (status === 3) {
+            item.classList.add('pending');
+            if (dot) dot.classList.add('muted');
+            if (card) card.classList.add('muted-card');
+            if (weekText) weekText.classList.add('muted');
+            if (statusSpan) {
+                statusSpan.classList.add('pending-status');
+                statusSpan.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>\nChưa bắt đầu';
+            }
+            if (btn) btn.classList.add('muted-btn');
+        }
+    });
+}
+
 async function fetchAndRenderProgress() {
     try {
         const response = await fetch('data/progress.json');
         if (!response.ok) throw new Error('Không thể tải dữ liệu tiến độ');
         const data = await response.json();
+        
+        window.progressData = data;
+        if (tabHienTai === 'tien-do') {
+            updateTimelineUI();
+        }
 
         for (let week = 1; week <= 4; week++) {
             const weekData = data[week];
