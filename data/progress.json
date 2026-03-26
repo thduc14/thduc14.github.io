@@ -1,19 +1,23 @@
 {
   "1": {
     "status": 1,
-    "totalTasks": 2,
+    "totalTasks": 4,
     "tasks": [
       {
-        "title": "Tổ chức họp nhóm (Kick-off) & Chốt đề tài",
-        "desc": "Đã thống nhất lựa chọn đề tài Quản lý Sự kiện."
+        "title": "Họp khởi động (Kick-off) & Chốt đề tài",
+        "desc": "Thống nhất lựa chọn đề tài xây dựng HỆ THỐNG QUẢN LÝ SỰ KIỆN & BÁN VÉ TRỰC TUYẾN."
       },
       {
-        "title": "Khởi tạo môi trường làm việc",
-        "desc": "Tạo Repository trên Github, thiết lập Trello."
+        "title": "Thiết lập môi trường làm việc",
+        "desc": "Tạo website nhóm, khởi tạo Repository trên Github và thiết lập công cụ quản lý dự án."
       },
       {
-        "title": "Thử nghiệm",
-        "desc": "Tạo Repository trên Github, thiết lập Trello."
+        "title": "Phân công nguồn nhân lực",
+        "desc": "Xác định vai trò nhóm trưởng và phân chia công việc ban đầu cho các thành viên."
+      },
+      {
+        "title": "Xây dựng tài liệu khởi tạo",
+        "desc": "Hoàn thành bản thảo SOW, Project Charter, Project Business Case và bảng câu hỏi phỏng vấn khảo sát."
       }
     ]
   },
@@ -21,10 +25,6 @@
     "status": 2,
     "totalTasks": 2,
     "tasks": [
-      {
-        "title": "Viết tài liệu Business Case",
-        "desc": "Phân tích bối cảnh dự án, xác định phạm vi."
-      }
     ]
   },
   "3": {
