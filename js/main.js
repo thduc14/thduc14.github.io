@@ -2,11 +2,11 @@
    DATA
 ═══════════════════════════════════════════ */
 const duLieuThanhVien = {
-    Huy: { ten: 'Lai Mộc Huy', vaiTro: 'Nhóm trưởng · Fullstack Developer', manh: 'Khả năng lãnh đạo tốt, chia task rõ ràng. Code cứng cả mảng Frontend lẫn Backend.', yeu: 'Đôi khi quá ôm đồm công việc, thức khuya nhiều — cần chú ý sức khỏe.' },
-    Dung: { ten: 'Huỳnh Đức Dũng', vaiTro: 'Thành viên · Backend Developer', manh: 'Tư duy logic tốt, xử lý cơ sở dữ liệu và viết API cực kỳ mượt mà, ít bug.', yeu: 'Hơi trầm tính trong các buổi họp nhóm, ít chú ý đến thiết kế giao diện (UI).' },
-    Duyen: { ten: 'Sơn Nguyễn Kỳ Duyên', vaiTro: 'Thành viên · Business Analyst & UI/UX', manh: 'Mắt thẩm mỹ tuyệt vời. Quản lý tài liệu dự án, vẽ mockup và làm slide cực kỳ đẹp.', yeu: 'Chưa có nhiều kinh nghiệm lập trình sâu về hệ thống máy chủ (Backend).' },
-    Duc: { ten: 'Nguyễn Thành Đức', vaiTro: 'Thành viên · Frontend & Tester', manh: 'Nhạy bén trong việc tìm lỗi (Bug hunter). CSS cứng, chuyên trị các hiệu ứng giao diện.', yeu: 'Hay bị trễ deadline lặt vặt, cần cải thiện khả năng quản lý thời gian cá nhân.' },
-    Duc2: { ten: 'Nguyễn Minh Đức', vaiTro: 'Thành viên · Frontend Developer', manh: 'Chăm chỉ, cẩn thận. Phối hợp tốt với team, luôn hoàn thành đúng hạn.', yeu: 'Cần nâng cao kinh nghiệm với các công nghệ backend và DevOps.' }
+    Huy: { ten: 'Lai Mộc Huy', vaiTro: 'Nhóm trưởng', manh: 'Khả năng lãnh đạo tốt, có trách nhiệm với công việc, lên kế hoạch và phân công rõ ràng. Code cứng cả mảng Frontend lẫn Backend.', yeu: 'Đôi khi quá ôm đồm công việc, thức khuya nhiều — cần chú ý sức khỏe.' },
+    Dung: { ten: 'Huỳnh Đức Dũng', vaiTro: 'Nhóm phó', manh: 'Tư duy logic tốt, xử lý cơ sở dữ liệu và viết API cực kỳ mượt mà, ít bug.', yeu: 'Hơi trầm tính trong các buổi họp nhóm, ít chú ý đến thiết kế giao diện (UI).' },
+    Duyen: { ten: 'Sơn Nguyễn Kỳ Duyên', vaiTro: 'Thư ký', manh: 'Mắt thẩm mỹ tuyệt vời. Quản lý tài liệu dự án, vẽ mockup và làm slide cực kỳ đẹp.', yeu: 'Chưa có nhiều kinh nghiệm lập trình sâu về hệ thống máy chủ (Backend).' },
+    Duc: { ten: 'Nguyễn Thành Đức', vaiTro: 'Thành viên', manh: 'Nhạy bén trong việc tìm lỗi (Bug hunter). CSS cứng, chuyên trị các hiệu ứng giao diện.', yeu: 'Hay bị trễ deadline lặt vặt, cần cải thiện khả năng quản lý thời gian cá nhân.' },
+    Duc2: { ten: 'Nguyễn Minh Đức', vaiTro: 'Thành viên', manh: 'Chăm chỉ, cẩn thận. Phối hợp tốt với team, luôn hoàn thành đúng hạn.', yeu: 'Cần nâng cao kinh nghiệm với các công nghệ Backend và DevOps.' }
 };
 
 /* ═══════════════════════════════════════════
