@@ -91,7 +91,7 @@
             <div class="modal-header violet">
                 <div class="modal-header-meta">
                     <span class="modal-badge">Giai đoạn 1</span>
-                    <span class="modal-date">📅 12/03 – 25/02</span>
+                    <span class="modal-date">📅 12/02 – 28/02</span>
                 </div>
                 <h3>Khởi động dự án</h3>
                 <button class="close-btn light" onclick="closeModal('modal-1')">
@@ -233,7 +233,32 @@
             </div>
         </div>
     </div>
+    <div class="music-player">
+        <div class="music-controls">
+            <button id="btn-play-pause" onclick="toggleMusic()" title="Phát / Tạm dừng">
+                <svg id="icon-speaker" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="music-info" title="Đang phát bài này nè!">
+            <div class="music-marquee">
+                <span id="music-title">Tên bài hát sẽ hiện ở đây...</span>
+            </div>
+        </div>
 
+        <div class="music-controls">
+            <button id="btn-next" onclick="nextMusic()" title="Chuyển bài khác">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 4 15 12 5 20 5 4"></polygon>
+                    <line x1="19" y1="5" x2="19" y2="19"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
     <!-- JS Files -->
     <script src="js/main.js"></script>
 

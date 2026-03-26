@@ -111,3 +111,69 @@ main { flex: 1; padding-top: var(--nav-h); }
   color: var(--gray-400);
   line-height: 1.65;
 }
+
+/* ═══════════════════════════════════════════
+   MUSIC PLAYER
+═══════════════════════════════════════════ */
+.music-player {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid var(--pink-border);
+  border-radius: 50px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-md);
+  transition: all var(--ease);
+}
+
+.music-player:hover {
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(232, 85, 136, 0.1);
+  transform: translateY(-2px);
+  border-color: var(--pink-light);
+}
+
+.music-controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-500);
+  background: var(--gray-50);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  transition: all var(--ease);
+}
+
+.music-controls button:hover {
+  color: var(--pink);
+  background: var(--pink-bg);
+  transform: scale(1.1);
+}
+
+.music-info {
+  width: 120px; /* Giới hạn độ dài để khung nhạc không quá to */
+  overflow: hidden;
+}
+
+.music-marquee {
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray-700);
+  /* Hiệu ứng chữ chạy (Marquee) nếu tên bài dài */
+  animation: scrollText 10s linear infinite;
+  display: inline-block;
+}
+
+@keyframes scrollText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Ẩn bớt animation chạy chữ nếu không thích có thể bỏ đi */

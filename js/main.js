@@ -391,3 +391,69 @@ function toggleZoomPDF() {
        
     }
 }
+
+/* ═══════════════════════════════════════════
+   MUSIC PLAYER LOGIC
+═══════════════════════════════════════════ */
+// ĐÂY LÀ DANH SÁCH NHẠC CỦA BẠN (Sửa link/tên tại đây nhé)
+const playlist = [
+    { title: "Nơi Này Có Anh - Sơn Tùng M-TP", src: "src\\mp3\\Nơi Này Có Anh.mp3" }, 
+    { title: "Một Năm Mới Bình An - Sơn Tùng M-TP", src: "src\\mp3\\Một Năm Mới Bình An.mp3" },
+    { title: "Đừng Làm Trái Tim Anh Đau - Sơn Tùng M-TP", src: "src\\mp3\\Đừng Làm Trái Tim Anh Đau.mp3" }
+];
+
+let currentTrackIndex = 0;
+let audioPlayer = new Audio(playlist[currentTrackIndex].src);
+let isPlaying = false;
+
+// Cập nhật giao diện lúc vừa vào web
+document.getElementById('music-title').textContent = playlist[currentTrackIndex].title;
+
+function toggleMusic() {
+    if (isPlaying) {
+        audioPlayer.pause();
+        isPlaying = false;
+    } else {
+        audioPlayer.play();
+        isPlaying = true;
+    }
+    updateSpeakerIcon();
+}
+
+function nextMusic() {
+    audioPlayer.pause();
+    // Chuyển sang bài tiếp theo, nếu hết mảng thì quay lại bài đầu
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    
+    // Gán nguồn nhạc mới và tên mới
+    audioPlayer.src = playlist[currentTrackIndex].src;
+    document.getElementById('music-title').textContent = playlist[currentTrackIndex].title;
+    
+    if (isPlaying) {
+        audioPlayer.play();
+    }
+}
+
+function updateSpeakerIcon() {
+    const icon = document.getElementById('icon-speaker');
+    if (isPlaying) {
+        // Icon Loa đang phát nhạc (Có sóng âm)
+        icon.innerHTML = `
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+        `;
+        document.getElementById('btn-play-pause').style.color = "var(--pink)"; // Bật nhạc thì nút màu hồng
+    } else {
+        // Icon Loa tắt nhạc (Có dấu chéo)
+        icon.innerHTML = `
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+        `;
+        document.getElementById('btn-play-pause').style.color = ""; // Trả về màu xám
+    }
+}
+
+// Tự động chuyển bài khi bài hiện tại hát xong
+audioPlayer.addEventListener('ended', nextMusic);
