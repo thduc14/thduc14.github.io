@@ -320,3 +320,59 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* --- NÚT VÀ HIỆU ỨNG PHÓNG TO PDF --- */
+.pdf-wrapper {
+  position: relative;
+  width: 100%;
+  transition: all var(--ease);
+}
+
+.btn-zoom {
+  position: absolute;
+  top: 16px;
+  right: 28px; /* Đẩy vào trong một chút để tránh thanh cuộn của PDF */
+  z-index: 10;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 8px;
+  color: var(--gray-700);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--ease);
+}
+
+.btn-zoom:hover {
+  background: var(--pink);
+  color: var(--white);
+  border-color: var(--pink);
+}
+
+/* Trạng thái khi được phóng to */
+.pdf-wrapper.is-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(30, 10, 20, 0.85); /* Nền tối tông hồng trầm của giao diện */
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.pdf-wrapper.is-fullscreen object {
+  width: 100%;
+  max-width: 1000px;
+  height: 90vh;
+  box-shadow: var(--shadow-xl);
+}
+
+/* Điều chỉnh lại vị trí nút khi ở chế độ fullscreen */
+.pdf-wrapper.is-fullscreen .btn-zoom {
+  top: 20px;
+  right: 20px;
+  background: #ef4444; /* Chuyển màu đỏ để nổi bật nút đóng */
+  color: white;
+  border-color: #ef4444;
+}
