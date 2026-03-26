@@ -370,3 +370,24 @@ window.addEventListener('DOMContentLoaded', () => {
         chuyenTrang('trang-chu');
     }
 });
+
+/* ═══════════════════════════════════════════
+   ZOOM PDF (THỎA THUẬN)
+═══════════════════════════════════════════ */
+function toggleZoomPDF() {
+    const wrapper = document.getElementById('pdf-wrapper');
+    const btn = wrapper.querySelector('.btn-zoom');
+    
+    // Bật/tắt class fullscreen
+    wrapper.classList.toggle('is-fullscreen');
+    
+    if (wrapper.classList.contains('is-fullscreen')) {
+        // Đổi icon thành nút Thu nhỏ (Minimize)
+        btn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14h6v6M20 10h-6V4M10 14l-7 7M14 10l7-7"/></svg>`;
+        
+    } else {
+        // Đổi lại icon Phóng to (Maximize)
+        btn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>`;
+       
+    }
+}
