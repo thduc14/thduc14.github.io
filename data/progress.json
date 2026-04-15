@@ -22,19 +22,41 @@
     ]
   },
   "2": {
-    "status": 2,
-    "totalTasks": 2,
+    "status": 1,
+    "totalTasks": 5,
     "tasks": [
+      {
+        "title": "Thu thập yêu cầu & Xác định phạm vi",
+        "desc": "Xác định khung dự án, phân tích yêu cầu (chức năng, phi chức năng, ràng buộc) và đề xuất phương án MVP."
+      },
+      {
+        "title": "Xây dựng Usecase & WBS",
+        "desc": "Vẽ sơ đồ Usecase phần mềm và phân rã cấu trúc công việc (WBS) chi tiết đến 4 cấp."
+      },
+      {
+        "title": "Quản lý tiến độ (PDM & Gantt)",
+        "desc": "Lập danh sách hoạt động, sắp xếp theo PDM, tìm đường găng (Critical path) và vẽ sơ đồ Gantt."
+      },
+      {
+        "title": "Hoạch định Tài nguyên & Tài chính",
+        "desc": "Đề xuất danh sách tài nguyên, phân tích tài chính và cập nhật ma trận phân công trách nhiệm (RACI)."
+      },
+      {
+        "title": "Kế hoạch quản lý & Cập nhật Website",
+        "desc": "Lập kế hoạch quản lý (thời gian, chi phí, chất lượng); cập nhật tiến độ, biên bản họp và tài liệu lên Website nhóm."
+      }
     ]
   },
   "3": {
-    "status": 3,
+    "status": 2,
     "totalTasks": 5,
-    "tasks": []
+    "tasks": [
+    ]
   },
   "4": {
     "status": 3,
     "totalTasks": 3,
-    "tasks": []
+    "tasks": [
+    ]
   }
 }
