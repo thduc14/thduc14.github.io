@@ -111,3 +111,135 @@ main { flex: 1; padding-top: var(--nav-h); }
   color: var(--gray-400);
   line-height: 1.65;
 }
+
+/*STYLE CHO PHẦN CHI TIẾT DỰ ÁN*/
+.project-details-section {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.project-header {
+  text-align: center;
+}
+
+.project-title {
+  font-size: 28px;
+  color: #2c2c2c;
+  margin-bottom: 15px;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background-color: #fff0f5; /* Nền hồng nhạt */
+  color: #e83e8c; /* Chữ hồng đậm */
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  background-color: #fce4ec;
+  margin: 30px 0;
+}
+
+.project-section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 22px;
+  color: #e83e8c;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #fff0f5;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+/* Hiệu ứng thẻ Card chung */
+.card, .feature-box {
+  background: #ffffff;
+  border: 1px solid #fce4ec;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 15px rgba(232, 62, 140, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover, .feature-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(232, 62, 140, 0.15);
+}
+
+/* Lưới Mục tiêu: Chia 3 cột */
+.objective-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card h4 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* Lưới Chức năng: Chia 2 cột */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.feature-title {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.feature-list {
+  padding-left: 20px;
+}
+
+.feature-list li {
+  margin-bottom: 10px;
+}
+
+/* Style cho nút xem tiến độ (giống tone màu Spring) */
+.btn-progress {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: transparent;
+  color: #e83e8c;
+  border: 2px solid #e83e8c;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.btn-progress:hover {
+  background-color: #e83e8c;
+  color: #ffffff;
+}
+
+/* Responsive: Thu về 1 cột trên màn hình điện thoại */
+@media (max-width: 768px) {
+  .objective-cards {
+    grid-template-columns: 1fr;
+  }
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
