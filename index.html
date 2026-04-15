@@ -91,7 +91,7 @@
             <div class="modal-header violet">
                 <div class="modal-header-meta">
                     <span class="modal-badge">Giai đoạn 1</span>
-                    <span class="modal-date">📅 12/02 – 28/02</span>
+                    <span class="modal-date">📅 12/03/2026 – 25/03/2026</span>
                 </div>
                 <h3>Khởi động dự án</h3>
                 <button class="close-btn light" onclick="closeModal('modal-1')">
@@ -130,19 +130,19 @@
             <div class="modal-header sky">
                 <div class="modal-header-meta">
                     <span class="modal-badge">Giai đoạn 2</span>
-                    <span class="modal-date">📅 Đang tiến hành</span>
+                    <span class="modal-date">📅 26/03/2026 – 15/04/2026</span>
                 </div>
-                <h3>Phân tích và thiết kế</h3>
+                <h3>Lập kế hoạch & Phân tích dự án</h3>
                 <button class="close-btn light" onclick="closeModal('modal-2')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="modal-summary">
-                    <p>Giai đoạn phân tích yêu cầu, thiết kế cơ sở dữ liệu và xây dựng wireframe giao diện hệ thống.</p>
+                    <p>Giai đoạn thu thập yêu cầu, phân rã công việc, lập sơ đồ tiến độ và hoạch định tài nguyên cho dự án.</p>
                     <div class="progress-bar-wrap">
-                        <div class="progress-label"><span>Tiến độ công việc</span><strong>60%</strong></div>
-                        <div class="progress-track"><div class="progress-fill progress-fill-sky" style="width:60%"></div></div>
+                        <div class="progress-label"><span>Tiến độ công việc</span><strong>100%</strong></div>
+                        <div class="progress-track"><div class="progress-fill done-fill" style="width:100%"></div></div>
                     </div>
                 </div>
                 <div class="modal-section">
@@ -164,33 +164,33 @@
     <div id="modal-3" class="overlay hidden">
         <div class="overlay-backdrop" onclick="closeModal('modal-3')"></div>
         <div class="modal">
-            <div class="modal-header slate">
+            <div class="modal-header orange">
                 <div class="modal-header-meta">
                     <span class="modal-badge">Giai đoạn 3</span>
-                    <span class="modal-date">📅 Sắp tới</span>
+                    <span class="modal-date">📅 Chưa bắt đầu</span>
                 </div>
-                <h3>Thực hiện đồ án</h3>
+                <h3>Thực thi & Kiểm thử</h3>
                 <button class="close-btn light" onclick="closeModal('modal-3')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="modal-summary">
-                    <p>Giai đoạn lập trình frontend, backend và thực hiện kiểm thử toàn diện hệ thống.</p>
+                    <p>Tiến hành code các tính năng của Web App, Mobile App và thực hiện kiểm thử chịu tải (Stress Test).</p>
                     <div class="progress-bar-wrap">
                         <div class="progress-label"><span>Tiến độ công việc</span><strong>0%</strong></div>
-                        <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+                        <div class="progress-track"><div class="progress-fill progress-fill-orange" style="width:0%"></div></div>
                     </div>
                 </div>
+
                 <div class="modal-section">
-                    <h4><span class="section-icon green">✓</span> Công việc đã thực hiện</h4>
+                    <h4><span class="section-icon green">✓</span> Danh sách công việc</h4>
                     <div class="task-list">
-                        <!-- Tasks rendered via JS -->
-                    </div>
+                        </div>
                 </div>
+
                 <div class="modal-section">
-                    <h4><span class="section-icon blue">📎</span> Tài liệu đính kèm (Tuần 3)</h4>
-                    <!-- VÙNG RENDER PDF -->
+                    <h4><span class="section-icon blue">📎</span> Tài liệu đính kèm (Sắp ra mắt)</h4>
                     <div id="modal-docs-3"></div>
                 </div>
             </div>
@@ -201,39 +201,39 @@
     <div id="modal-4" class="overlay hidden">
         <div class="overlay-backdrop" onclick="closeModal('modal-4')"></div>
         <div class="modal">
-            <div class="modal-header slate">
+            <div class="modal-header red">
                 <div class="modal-header-meta">
                     <span class="modal-badge">Giai đoạn 4</span>
-                    <span class="modal-date">📅 Sắp tới</span>
+                    <span class="modal-date">📅 Chưa bắt đầu</span>
                 </div>
-                <h3>Báo cáo & Nộp đồ án</h3>
+                <h3>Nghiệm thu & Đóng dự án</h3>
                 <button class="close-btn light" onclick="closeModal('modal-4')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="modal-summary">
-                    <p>Giai đoạn hoàn thiện tài liệu, quay video demo, chuẩn bị báo cáo và nộp đồ án chính thức.</p>
+                    <p>Bàn giao hệ thống cho Startup Dề Dê, nghiệm thu (UAT), họp rút kinh nghiệm và báo cáo hoàn thành môn học.</p>
                     <div class="progress-bar-wrap">
                         <div class="progress-label"><span>Tiến độ công việc</span><strong>0%</strong></div>
-                        <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+                        <div class="progress-track"><div class="progress-fill progress-fill-red" style="width:0%"></div></div>
                     </div>
                 </div>
+
                 <div class="modal-section">
-                    <h4><span class="section-icon green">✓</span> Công việc đã thực hiện</h4>
+                    <h4><span class="section-icon green">✓</span> Danh sách công việc</h4>
                     <div class="task-list">
-                        <!-- Tasks rendered via JS -->
-                    </div>
+                        </div>
                 </div>
+
                 <div class="modal-section">
-                    <h4><span class="section-icon blue">📎</span> Tài liệu đính kèm (Tuần 4)</h4>
-                    <!-- VÙNG RENDER PDF -->
+                    <h4><span class="section-icon blue">📎</span> Tài liệu đính kèm (Sắp ra mắt)</h4>
                     <div id="modal-docs-4"></div>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <!-- JS Files -->
     <script src="js/main.js"></script>
 
