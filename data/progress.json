@@ -48,15 +48,47 @@
     ]
   },
   "3": {
-    "status": 2,
+    "status": 1,
     "totalTasks": 5,
     "tasks": [
+      {
+        "title": "Hoàn thiện mockup và luồng nghiệp vụ",
+        "desc": "Rà soát giao diện, thống nhất luồng xử lý chính và cập nhật tài liệu thiết kế phục vụ giai đoạn thực thi."
+      },
+      {
+        "title": "Xây dựng Activity Diagram",
+        "desc": "Vẽ và lưu trữ các sơ đồ hoạt động cho những chức năng trọng tâm của hệ thống."
+      },
+      {
+        "title": "Xây dựng Sequence Diagram",
+        "desc": "Mô tả tương tác giữa người dùng, giao diện và các thành phần xử lý bằng sequence diagram."
+      },
+      {
+        "title": "Ước lượng chi phí và đánh giá tiến độ",
+        "desc": "Cập nhật tài liệu ước lượng chi phí, biên bản họp và đánh giá tình hình thực hiện dự án."
+      },
+      {
+        "title": "Kiểm thử và tổng hợp tài liệu tuần 3",
+        "desc": "Kiểm tra lại các tài liệu đầu ra, gom file PDF và PlantUML theo đúng cấu trúc thư mục tuần 3."
+      }
     ]
   },
   "4": {
-    "status": 3,
+    "status": 1,
     "totalTasks": 3,
     "tasks": [
+      {
+        "title": "Hoàn thiện bộ tài liệu quản lý dự án",
+        "desc": "Tổng hợp các tài liệu quản lý phạm vi, lịch biểu, chi phí, chất lượng, rủi ro và truyền thông."
+      },
+      {
+        "title": "Chuẩn bị báo cáo và phân công nộp đồ án",
+        "desc": "Cập nhật biên bản họp, phân công lần cuối và hoàn thiện nội dung báo cáo tổng kết."
+      },
+      {
+        "title": "Rà soát hồ sơ nộp đồ án",
+        "desc": "Kiểm tra đầy đủ tài liệu tuần 4 và sắp xếp tài nguyên nộp đồ án theo cấu trúc repository."
+      }
     ]
   }
 }

@@ -21,7 +21,7 @@ const routes = {
 };
 
 let tabHienTai = 'trang-chu';
-let dacapNhatGithubPDF = { 1: false, 2: false, 3: false }; // Đánh dấu tuần nào đã fetch data
+let dacapNhatGithubPDF = { 1: false, 2: false, 3: false, 4: false }; // Đánh dấu tuần nào đã fetch data
 
 async function chuyenTrang(idTrang) {
     if (!routes[idTrang]) return;
@@ -179,14 +179,165 @@ document.addEventListener('keydown', function (e) {
 });
 
 /* ═══════════════════════════════════════════
-   GITHUB API - TẢI TÀI LIỆU (PDF) THEO TUẦN
+   GITHUB API - TẢI TÀI LIỆU THEO TUẦN
 ═══════════════════════════════════════════ */
 // ĐỔI THÔNG TIN REPO CỦA BẠN TẠI ĐÂY:
 const GITHUB_OWNER = 'thduc14'; // Thay bằng username của bạn
 const GITHUB_REPO = 'thduc14.github.io'; // Thay bằng tên repo của bạn
 const BRANCH_NAME = 'main';
+const DOCUMENT_FILE_TYPES = ['.pdf', '.pu', '.puml', '.png', '.jpg', '.jpeg', '.svg'];
 
-async function loadGitHubPDFs(week) {
+function escapeHTML(value = '') {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function encodeGitHubPath(path = '') {
+    return path
+        .split('/')
+        .filter(Boolean)
+        .map(segment => encodeURIComponent(segment))
+        .join('/');
+}
+
+function getFileExtension(fileName = '') {
+    const dotIndex = fileName.lastIndexOf('.');
+    return dotIndex >= 0 ? fileName.slice(dotIndex).toLowerCase() : '';
+}
+
+function isRenderableDocument(file) {
+    if (!file || file.type !== 'file' || file.name === '.DS_Store') return false;
+    return DOCUMENT_FILE_TYPES.includes(getFileExtension(file.name));
+}
+
+function formatFileSize(size = 0) {
+    if (!size) return '';
+    const kb = size / 1024;
+    if (kb >= 1024) return `${(kb / 1024).toFixed(1)} MB`;
+    return `${Math.max(1, Math.round(kb))} KB`;
+}
+
+function getRawGitHubUrl(file) {
+    if (file.download_url) return file.download_url;
+    return `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${BRANCH_NAME}/${encodeGitHubPath(file.path)}`;
+}
+
+async function fetchGitHubContents(path) {
+    const apiPath = encodeGitHubPath(path);
+    const response = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${apiPath}?ref=${BRANCH_NAME}`);
+
+    if (response.status === 404) return null;
+    if (!response.ok) throw new Error(`Không thể tải ${path}`);
+
+    return response.json();
+}
+
+function renderFileCard(file) {
+    const ext = getFileExtension(file.name);
+    const typeText = ext === '.pu' || ext === '.puml' ? 'UML' : ext.replace('.', '').toUpperCase();
+    const cardClass = ext === '.pdf' ? 'pdf-card' : 'pdf-card uml-card';
+    const iconClass = ext === '.pdf' ? 'pdf-icon' : 'pdf-icon uml-icon';
+    const rawUrl = getRawGitHubUrl(file);
+    const sizeText = formatFileSize(file.size);
+
+    return `
+        <a href="${escapeHTML(rawUrl)}" target="_blank" rel="noopener noreferrer" class="${cardClass}">
+            <div class="${iconClass}">${escapeHTML(typeText)}</div>
+            <div class="pdf-info">
+                <strong class="pdf-name" title="${escapeHTML(file.name)}">${escapeHTML(file.name)}</strong>
+                <span class="pdf-size">${escapeHTML(sizeText || 'Mở file raw')}</span>
+            </div>
+            <svg class="pdf-download" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                <path d="M15 3h6v6"/>
+                <path d="M10 14L21 3"/>
+            </svg>
+        </a>
+    `;
+}
+
+async function renderDirectoryContents(path, depth = 0) {
+    const contents = await fetchGitHubContents(path);
+    if (!Array.isArray(contents)) return '';
+
+    const files = contents
+        .filter(isRenderableDocument)
+        .sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+
+    const folders = contents
+        .filter(item => item.type === 'dir')
+        .sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+
+    const fileHtml = files.length
+        ? `<div class="pdf-grid doc-file-grid">${files.map(renderFileCard).join('')}</div>`
+        : '';
+
+    const folderHtmlParts = [];
+    for (const folder of folders) {
+        const nestedHtml = await renderDirectoryContents(folder.path, depth + 1);
+        if (nestedHtml) {
+            folderHtmlParts.push(renderFolderShell(folder.name, folder.path, 'Thư mục con', nestedHtml, depth + 1, true));
+        }
+    }
+
+    return [fileHtml, ...folderHtmlParts].filter(Boolean).join('');
+}
+
+function renderFolderShell(title, folderPath, typeLabel, bodyHtml, depth = 0, isOpen = false) {
+    const safeTitle = escapeHTML(title);
+    const safePath = escapeHTML(folderPath);
+    const safeLabel = escapeHTML(typeLabel);
+    const openClass = isOpen ? ' open' : '';
+    const expanded = isOpen ? 'true' : 'false';
+
+    return `
+        <div class="doc-folder${openClass}" data-depth="${depth}">
+            <button type="button" class="doc-folder-header" aria-expanded="${expanded}" onclick="toggleDocFolder(this)">
+                <span class="doc-folder-title">
+                    <span class="doc-folder-arrow">›</span>
+                    <span class="doc-folder-icon">📁</span>
+                    <span>
+                        <strong>${safeTitle}</strong>
+                        <small>${safeLabel}</small>
+                    </span>
+                </span>
+                <span class="doc-folder-path">${safePath}</span>
+            </button>
+            <div class="doc-folder-body">
+                ${bodyHtml}
+            </div>
+        </div>
+    `;
+}
+
+async function renderFolderAccordion(title, folderPath, typeLabel) {
+    const bodyHtml = await renderDirectoryContents(folderPath);
+
+    if (!bodyHtml) {
+        return renderFolderShell(
+            title,
+            folderPath,
+            typeLabel,
+            `<div class="docs-empty doc-folder-empty"><p>Chưa có file trong thư mục <b>${escapeHTML(title)}</b></p></div>`
+        );
+    }
+
+    return renderFolderShell(title, folderPath, typeLabel, bodyHtml);
+}
+
+function toggleDocFolder(button) {
+    const folder = button.closest('.doc-folder');
+    if (!folder) return;
+
+    const isOpen = folder.classList.toggle('open');
+    button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
+async function loadGitHubDocuments(week) {
     const modalDocsEl = document.getElementById(`modal-docs-${week}`);
     if (!modalDocsEl) return;
     
@@ -200,48 +351,38 @@ async function loadGitHubPDFs(week) {
 
     try {
         const folderPath = `input/week${week}`;
-        const response = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${folderPath}?ref=${BRANCH_NAME}`);
+        const data = await fetchGitHubContents(folderPath);
         
-        if (!response.ok) {
-            if (response.status === 404) {
-                console.warn(`Thư mục ${folderPath} chưa có.`);
-            }
+        if (!Array.isArray(data)) {
+            console.warn(`Thư mục ${folderPath} chưa có.`);
             dacapNhatGithubPDF[week] = true;
             modalDocsEl.innerHTML = `<div class="docs-empty" style="text-align: center; padding: 20px;"><p style="font-size: 13px; color: var(--gray-400);">Chưa có tài liệu nào trong thư mục <b>input/week${week}</b></p></div>`;
             return;
         }
 
-        const data = await response.json();
-        const pdfFiles = Array.isArray(data) ? data.filter(file => file.name.toLowerCase().endsWith('.pdf')) : [];
+        const rootPdfFiles = data
+            .filter(file => file.type === 'file' && getFileExtension(file.name) === '.pdf')
+            .sort((a, b) => a.name.localeCompare(b.name, 'vi'));
 
-        if (pdfFiles.length === 0) {
-            modalDocsEl.innerHTML = `<div class="docs-empty" style="text-align: center; padding: 20px;"><p style="font-size: 13px; color: var(--gray-400);">Chưa có tài liệu nào trong thư mục <b>input/week${week}</b></p></div>`;
-        } else {
-            const html = pdfFiles.map(file => {
-                const rawUrl = file.download_url || `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${BRANCH_NAME}/${file.path}`;
-                
-                let sizeText = '';
-                if (file.size) {
-                    const kb = file.size / 1024;
-                    if (kb > 1024) sizeText = (kb / 1024).toFixed(1) + ' MB';
-                    else sizeText = kb.toFixed(0) + ' KB';
-                }
+        const rootDocsHtml = rootPdfFiles.length
+            ? `<div class="pdf-grid">${rootPdfFiles.map(renderFileCard).join('')}</div>`
+            : '';
 
-                return `
-                <a href="${rawUrl}" target="_blank" class="pdf-card">
-                    <div class="pdf-icon">PDF</div>
-                    <div class="pdf-info">
-                        <strong class="pdf-name">${file.name}</strong>
-                        <span class="pdf-size">${sizeText}</span>
-                    </div>
-                    <svg class="pdf-download" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                    </svg>
-                </a>`;
-            }).join('');
-            
-            modalDocsEl.innerHTML = `<div class="pdf-grid">${html}</div>`;
-        }
+        const folderHtml = String(week) === '3'
+            ? await Promise.all([
+                renderFolderAccordion('act', `${folderPath}/act`, 'Activity Diagram'),
+                renderFolderAccordion('seq', `${folderPath}/seq`, 'Sequence Diagram')
+            ])
+            : [];
+
+        const htmlParts = [
+            rootDocsHtml,
+            folderHtml.length ? `<div class="doc-folder-stack">${folderHtml.join('')}</div>` : ''
+        ].filter(Boolean);
+
+        modalDocsEl.innerHTML = htmlParts.length
+            ? htmlParts.join('')
+            : `<div class="docs-empty" style="text-align: center; padding: 20px;"><p style="font-size: 13px; color: var(--gray-400);">Chưa có tài liệu nào trong thư mục <b>input/week${week}</b></p></div>`;
 
         dacapNhatGithubPDF[week] = true;
 
@@ -249,6 +390,11 @@ async function loadGitHubPDFs(week) {
         console.error('Lỗi khi fetch từ GitHub:', error);
         modalDocsEl.innerHTML = `<div class="docs-empty" style="text-align: center; padding: 20px;"><p style="font-size: 13px; color: #ef4444;">Lỗi kết nối GitHub</p></div>`;
     }
+}
+
+// Giữ tên cũ để không phá các lời gọi hiện tại.
+async function loadGitHubPDFs(week) {
+    return loadGitHubDocuments(week);
 }
 
 
@@ -328,7 +474,9 @@ async function fetchAndRenderProgress() {
 
             const tasks = weekData.tasks || [];
             const totalTasks = weekData.totalTasks || 0;
-            const percentage = totalTasks > 0 ? Math.min(100, Math.round((tasks.length / totalTasks) * 100)) : 0;
+            const percentage = weekData.status === 1
+                ? 100
+                : (totalTasks > 0 ? Math.min(100, Math.round((tasks.length / totalTasks) * 100)) : 0);
 
             const modal = document.getElementById(`modal-${week}`);
             if (!modal) continue;
@@ -336,7 +484,10 @@ async function fetchAndRenderProgress() {
             const progressLabelStr = modal.querySelector('.progress-label strong');
             const progressFill = modal.querySelector('.progress-fill');
             if (progressLabelStr) progressLabelStr.textContent = `${percentage}%`;
-            if (progressFill) progressFill.style.width = `${percentage}%`;
+            if (progressFill) {
+                progressFill.style.width = `${percentage}%`;
+                progressFill.classList.toggle('done-fill', weekData.status === 1);
+            }
 
             const taskListContainer = modal.querySelector('.task-list');
             if (taskListContainer) {
