@@ -1,0 +1,50 @@
+@startuml Seq_XemDashboardHanhVi
+autonumber "<b>##."
+skinparam sequenceMessageAlign center
+skinparam style strictuml
+
+actor "Ban tổ chức" as BTC
+boundary "BaoCaoThongKeForm" as FormBC
+boundary "DashboardPhanTichForm" as UI
+control "PhanTichHanhViController" as SYS
+entity ": DATABASE" as DB
+
+BTC -> FormBC: Click nút "Dashboard Phân tích hành vi"
+activate FormBC
+FormBC -> UI: Yêu cầu mở Dashboard
+deactivate FormBC
+activate UI
+
+UI -> UI: Hiển thị giao diện Dashboard trống & Bộ lọc
+deactivate UI
+
+BTC -> UI: Chọn Sự kiện, Khung thời gian & Nhấn "Phân tích"
+activate UI
+
+UI -> SYS: Yêu cầu phân tích dữ liệu hành vi 
+deactivate UI
+activate SYS
+
+SYS -> DB: Truy vấn dữ liệu log truy cập, mua vé
+activate DB
+DB --> SYS: Trả về raw data hành vi
+deactivate DB
+
+SYS -> SYS: Sắp xếp data cho biểu đồ
+SYS --> UI: Trả về Data Chart (Tỷ lệ chuyển đổi, Giờ vàng...)
+deactivate SYS
+
+activate UI
+UI -> UI: Hiển thị Dashboard hoàn chỉnh
+deactivate UI
+
+opt Xuất PDF
+    BTC -> UI: Nhấn "Xuất báo cáo PDF"
+    UI -> SYS: Yêu cầu tạo file PDF từ hình ảnh biểu đồ
+    activate SYS
+    SYS --> UI: Trả về file 
+    deactivate SYS
+    UI --> BTC: Tải file xuống máy tính
+end
+deactivate UI
+@enduml

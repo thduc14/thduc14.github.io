@@ -1,0 +1,60 @@
+@startuml Seq_SuaTaiKhoan
+autonumber "<b>##."
+skinparam sequenceMessageAlign center
+skinparam style strictuml
+
+actor "Ban tổ chức" as BTC
+boundary "QuanLyTaiKhoanForm" as UI
+boundary "SuaTaiKhoanForm" as FormSua
+control "TaiKhoanController" as SYS
+entity ": TAIKHOAN" as DB
+
+' Chuyển group thành opt để thể hiện tính không bắt buộc
+opt Nếu BTC muốn tìm kiếm tài khoản cụ thể
+    BTC -> UI: Nhập từ khóa & Nhấn "Tìm kiếm"
+    activate UI
+    UI -> SYS: Yêu cầu tìm kiếm theo từ khóa
+    deactivate UI
+    activate SYS
+    SYS -> DB: Truy vấn(Từ khóa)
+    activate DB
+    DB --> SYS: Trả về kết quả
+    deactivate DB
+    SYS --> UI: Trả về kết quả tra cứu
+    deactivate SYS
+end
+
+
+BTC -> UI: Chọn 1 tài khoản & Click "Sửa"
+activate UI
+UI -> FormSua: Yêu cầu mở Form Sửa (ID)
+deactivate UI
+activate FormSua
+
+FormSua -> SYS: Lấy chi tiết tài khoản (ID)
+deactivate FormSua
+activate SYS
+SYS -> DB: Truy vấn theo ID
+activate DB
+DB --> SYS: Trả về thông tin
+deactivate DB
+SYS --> FormSua: Đổ dữ liệu lên Form
+deactivate SYS
+activate FormSua
+FormSua -> FormSua: Hiển thị Form với dữ liệu cũ
+deactivate FormSua
+
+BTC -> FormSua: Sửa thông tin & Click "Lưu"
+FormSua -> SYS: Gửi dữ liệu cập nhật
+activate SYS
+SYS -> SYS: Validate dữ liệu
+SYS -> DB: Update(Tài khoản)
+activate DB
+DB --> SYS: Xác nhận cập nhật
+deactivate DB
+SYS --> FormSua: Thông báo thành công
+deactivate SYS
+activate FormSua
+FormSua -> FormSua: Báo "Sửa thành công" & Đóng Form
+deactivate FormSua
+@enduml

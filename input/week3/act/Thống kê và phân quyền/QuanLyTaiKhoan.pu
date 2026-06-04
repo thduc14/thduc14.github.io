@@ -1,0 +1,47 @@
+@startuml Act_QuanLyTaiKhoan
+skinparam SwimlaneTitleFontColor #A9B0B7
+hide stereotype
+
+<style>
+activityDiagram {
+    activity {
+        BackgroundColor white
+        BorderColor black
+    }
+    .db {
+        RoundCorner 0
+    }
+}
+</style>
+
+|Ban tổ chức|
+start
+:Chọn chức năng "Quản lý tài khoản";
+
+|Hệ thống|
+:Gửi yêu cầu lấy danh sách tài khoản;
+
+|Cơ sở dữ liệu|
+:NGUOIDUNG; <<db>>
+
+|Hệ thống|
+:Hiển thị giao diện Quản lý tài khoản\nvà nạp dữ liệu lên danh sách;
+
+|Ban tổ chức|
+:Xem danh sách tài khoản;
+
+if (Thao tác tiếp theo?) then (Chọn "Tạo mới")
+    :Kích hoạt Use Case\n"Tạo tài khoản mới";
+    stop
+elseif (Chọn "Sửa") then (Sửa)
+    :Kích hoạt Use Case\n"Sửa tài khoản";
+    stop
+elseif (Chọn "Xóa") then (Xóa)
+    :Kích hoạt Use Case\n"Xóa tài khoản";
+    stop
+else (Đóng giao diện)
+endif
+
+|Ban tổ chức|
+stop
+@enduml

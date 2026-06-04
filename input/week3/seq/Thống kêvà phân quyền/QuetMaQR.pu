@@ -1,0 +1,57 @@
+@startuml Seq_QuetMaQR
+autonumber "<b>##."
+skinparam sequenceMessageAlign center
+skinparam style strictuml
+
+actor "Nhân viên soát vé" as NV
+boundary "SoatVeScanner (Mobile UI)" as UI
+control "OfflineSyncController" as SYS
+entity ": LOCAL_DB" as LocalDB
+entity ": SERVER_DB" as DB
+
+NV -> UI: Quét mã QR trên vé khách
+activate UI
+
+UI -> SYS: Gửi chuỗi dữ liệu giải mã (TicketCode)
+deactivate UI
+activate SYS
+
+SYS -> LocalDB: Truy xuất thông tin vé (TicketCode)
+activate LocalDB
+LocalDB --> SYS: Trả về trạng thái vé (Valid/Used/Null)
+deactivate LocalDB
+
+
+alt Trạng thái: Chưa sử dụng 
+    SYS -> LocalDB: Cập nhật Status = "Checked-in"
+    activate LocalDB
+    LocalDB --> SYS: OK
+    deactivate LocalDB
+    SYS --> UI: Trả kết quả: "Hợp lệ - Cho qua" (Success < 2s)
+    activate UI
+    UI -> UI: Hiển thị màn hình XANH + Bíp thành công
+    deactivate UI
+    
+    par Tiến trình chạy ngầm đồng bộ
+        SYS -> DB: Sync lên Server (TicketCode, Time, Check-in status)
+        activate DB
+        DB --> SYS: Xác nhận đồng bộ thành công
+        deactivate DB
+    end
+
+else Trạng thái: Đã sử dụng
+    SYS --> UI: Trả kết quả: "Vé đã sử dụng"
+    activate UI
+    UI -> UI: Hiển thị màn hình ĐỎ + Cảnh báo
+    deactivate UI
+
+else Không tìm thấy mã 
+    SYS --> UI: Trả kết quả: "Mã không hợp lệ"
+    activate UI
+    UI -> UI: Hiển thị màn hình ĐỎ + Cảnh báo
+    deactivate UI
+end
+
+deactivate SYS
+deactivate UI
+@enduml

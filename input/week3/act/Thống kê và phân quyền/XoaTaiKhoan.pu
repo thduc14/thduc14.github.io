@@ -1,0 +1,59 @@
+@startuml Act_XoaTaiKhoan
+skinparam SwimlaneTitleFontColor #A9B0B7
+hide stereotype
+
+<style>
+activityDiagram {
+    activity {
+        BackgroundColor white
+        BorderColor black
+    }
+    .db {
+        RoundCorner 0
+    }
+}
+</style>
+
+|Ban tổ chức|
+start
+:Bắt đầu Use Case Xóa tài khoản;
+
+|Ban tổ chức|
+:Nhập từ khóa tìm kiếm;
+
+|Hệ thống|
+:Truy xuất và hiển thị kết quả;
+
+|Ban tổ chức|
+:Chọn tài khoản cần xóa;
+:Nhấn nút "Xóa";
+
+|Hệ thống|
+:Hiển thị hộp thoại Xác nhận xóa;
+
+|Ban tổ chức|
+if (Xác nhận?) then (Đồng ý)
+    |Hệ thống|
+    :Kiểm tra ràng buộc hệ thống;
+    
+    if (Thỏa điều kiện xóa?) then (Có)
+        |Hệ thống|
+        :Thực hiện xóa; 
+        |Cơ sở dữ liệu|
+        :NGUOIDUNG; <<db>>
+        
+        |Hệ thống|
+        :Thông báo "Xóa thành công";
+        :Cập nhật lại danh sách;
+    else (Không)
+        |Hệ thống|
+        :Thông báo "Không thể xóa do\nràng buộc dữ liệu";
+    endif
+else (Hủy)
+    |Hệ thống|
+    :Đóng hộp thoại;
+endif
+
+|Ban tổ chức|
+stop
+@enduml

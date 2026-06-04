@@ -1,0 +1,29 @@
+@startuml Seq_QuanLyPhanQuyen
+autonumber "<b>##."
+skinparam sequenceMessageAlign center
+skinparam style strictuml
+
+actor "Ban tổ chức" as BTC
+boundary "QuanLyPhanQuyenForm" as UI
+control "PhanQuyenController" as SYS
+entity ": PhanQuyen" as DB
+
+BTC -> UI: Chọn chức năng "Quản lý phân quyền"
+activate UI
+
+UI -> SYS: Yêu cầu danh sách tài khoản & quyền hạn
+deactivate UI
+activate SYS
+
+SYS -> DB: Lấy danh sách TAIKHOAN và ROLE
+activate DB
+DB --> SYS: Trả về danh sách (Account + Role list)
+deactivate DB
+
+SYS --> UI: Trả về dữ liệu và render UI
+deactivate SYS
+activate UI
+UI -> UI: Hiển thị danh sách phân quyền
+deactivate UI
+
+@enduml

@@ -1,0 +1,44 @@
+@startuml Seq_TaoTaiKhoan
+autonumber "<b>##."
+skinparam sequenceMessageAlign center
+skinparam style strictuml
+
+actor "Ban tổ chức" as BTC
+boundary "TaoTaiKhoanForm" as UI
+control "TaiKhoanController" as SYS
+entity ": TAIKHOAN" as DB
+
+BTC -> UI: Click nút "Tạo mới"
+activate UI
+UI --> BTC: Hiển thị Form nhập liệu
+deactivate UI
+
+BTC -> UI: Nhập thông tin & Nhấn "Tạo"
+activate UI
+UI -> SYS: Gửi dữ liệu tạo tài khoản
+deactivate UI
+activate SYS
+
+SYS -> SYS: Validate dữ liệu (Trống, Format)
+SYS -> DB: Kiểm tra tồn tại (Email/Username)
+deactivate SYS
+activate DB
+
+alt Tài khoản đã tồn tại
+    DB --> SYS: Kết quả: Tồn tại
+    SYS --> UI: Trả về lỗi "Tài khoản đã tồn tại"
+    activate UI
+    UI -> UI: Hiển thị thông báo lỗi
+    deactivate UI
+else Tài khoản chưa tồn tại
+    DB --> SYS: Kết quả: Hợp lệ
+    SYS -> DB: Tạo tài khoản mới
+    DB --> SYS: Cập nhật thành công
+    deactivate DB
+    SYS --> UI: Thông báo thành công
+    deactivate SYS
+    activate UI
+    UI -> UI: Hiển thị "Thành công" & Đóng form
+    deactivate UI
+end
+@enduml

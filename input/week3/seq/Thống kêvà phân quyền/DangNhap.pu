@@ -1,0 +1,42 @@
+@startuml Seq_DangNhap
+autonumber "<b>##."
+skinparam sequenceMessageAlign center
+skinparam style strictuml
+
+actor "Người dùng" as User
+boundary "LoginForm" as UI
+control "AuthService" as Auth
+entity ": TAIKHOAN" as DB
+
+User -> UI: Nhập Username & Password, click "Đăng nhập"
+activate UI
+
+UI -> Auth: Gửi thông tin đăng nhập (Credentials)
+deactivate UI
+activate Auth
+
+Auth -> DB: Lấy tài khoản theo Username
+activate DB
+DB --> Auth: Trả về Account (kèm Hashed Password) hoặc Null
+deactivate DB
+deactivate Auth
+
+alt Tài khoản tồn tại & So sánh Hash khớp
+    Auth -> DB: Lấy danh sách Role của Account
+    activate DB
+    DB --> Auth: Trả về Danh sách Role (USER, ADMIN...)
+    deactivate DB
+    
+    Auth -> Auth: Generate JWT Token
+    Auth --> UI: Trả Token phiên đăng nhập + Thông tin User
+    UI --> User: Đăng nhập thành công, chuyển hướng trang chủ
+else Tài khoản không tồn tại hoặc Sai Hash
+    Auth --> UI: Thông báo lỗi đăng nhập (Sai thông tin)
+    activate UI
+    UI -> UI: Hiển thị thông báo "Đăng nhập thất bại"
+    deactivate UI
+end
+
+deactivate Auth
+deactivate UI
+@enduml

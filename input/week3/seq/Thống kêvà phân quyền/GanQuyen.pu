@@ -1,0 +1,56 @@
+@startuml Seq_GanQuyen
+autonumber "<b>##."
+skinparam sequenceMessageAlign center
+skinparam style strictuml
+
+actor "Ban tổ chức" as BTC
+boundary "QuanLyPhanQuyenForm" as UI
+control "PhanQuyenController" as SYS
+entity ": PHANQUYEN" as DB
+
+opt Nếu BTC cần tìm kiếm tài khoản cụ thể
+    BTC -> UI: Nhập từ khóa & Nhấn "Tìm kiếm"
+    activate UI
+    UI -> SYS: Yêu cầu tìm kiếm theo từ khóa
+    deactivate UI
+    activate SYS
+    SYS -> DB: Query(Từ khóa)
+    activate DB
+    DB --> SYS: Trả về kết quả
+    deactivate DB
+    SYS --> UI: Render danh sách kết quả
+    deactivate SYS
+    deactivate UI
+end
+
+BTC -> UI: Chọn tài khoản, chọn Role & Click "Gán quyền"
+activate UI
+UI -> SYS: Yêu cầu gán quyền (AccountID, RoleID)
+deactivate UI
+activate SYS
+
+SYS -> DB: Kiểm tra tồn tại quyền (AccountID, RoleID)
+activate DB
+DB --> SYS: Trả về kết quả kiểm tra
+deactivate SYS
+deactivate DB
+
+alt Tài khoản đã có Role này
+    SYS --> UI: Báo lỗi "Tài khoản đã có quyền này"
+    activate UI
+    UI -> UI: Hiển thị thông báo lỗi
+    deactivate UI
+else Tài khoản chưa có Role
+    SYS -> DB: Insert vào bảng PHANQUYEN
+    activate DB
+    DB --> SYS: Xác nhận thêm thành công
+    deactivate DB
+    SYS --> UI: Thông báo "Gán quyền thành công"
+    activate UI
+    UI -> UI: Hiển thị thông báo thành công
+    deactivate UI
+end
+
+deactivate SYS
+deactivate UI
+@enduml

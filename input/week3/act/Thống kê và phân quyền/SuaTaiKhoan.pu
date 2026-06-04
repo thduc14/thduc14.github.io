@@ -1,0 +1,61 @@
+@startuml Act_SuaTaiKhoan
+skinparam SwimlaneTitleFontColor #A9B0B7
+hide stereotype
+
+<style>
+activityDiagram {
+    activity {
+        BackgroundColor white
+        BorderColor black
+    }
+    .db {
+        RoundCorner 0
+    }
+}
+</style>
+
+|Ban tổ chức|
+start
+:Bắt đầu Use Case Sửa tài khoản;
+
+|Ban tổ chức|
+:Nhập từ khóa tìm kiếm (Tên/Email);
+
+|Hệ thống|
+:Tìm kiếm và lọc danh sách;
+
+|Cơ sở dữ liệu|
+:NGUOIDUNG; <<db>>
+
+|Hệ thống|
+:Hiển thị kết quả tra cứu;
+
+|Ban tổ chức|
+:Chọn một tài khoản cụ thể;
+:Nhấn nút "Sửa";
+
+|Hệ thống|
+:Hiển thị Form Sửa tài khoản\n(Load dữ liệu cũ);
+
+|Ban tổ chức|
+:Thay đổi thông tin;
+:Nhấn "Lưu cập nhật";
+
+|Hệ thống|
+:Kiểm tra tính hợp lệ dữ liệu;
+
+if (Hợp lệ?) then (Có)
+    |Hệ thống|
+    :Cập nhật bản ghi; 
+    |Cơ sở dữ liệu|
+    :NGUOIDUNG; <<db>>
+    |Hệ thống|
+    :Thông báo "Sửa thành công";
+else (Không)
+    |Hệ thống|
+    :Thông báo lỗi nhập liệu;
+endif
+
+|Ban tổ chức|
+stop
+@enduml

@@ -1,0 +1,50 @@
+@startuml Act_DangNhap
+skinparam SwimlaneTitleFontColor #A9B0B7
+hide stereotype
+
+<style>
+activityDiagram {
+    activity {
+        BackgroundColor white
+        BorderColor black
+    }
+    .db {
+        RoundCorner 0
+    }
+}
+</style>
+
+|Người dùng|
+start
+:Mở trang Đăng nhập;
+:Nhập Username/Email và Password;
+:Nhấn nút "Đăng nhập";
+
+|Hệ thống (Auth Service)|
+:Kiểm tra định dạng;
+if (Hợp lệ?) then (Có)
+    |Cơ sở dữ liệu|
+    :NGUOIDUNG; <<db>>
+    
+    |Hệ thống (Auth Service)|
+    if (Tài khoản tồn tại?) then (Có)
+        :Băm (Hash) Password người dùng nhập;
+        :So sánh mã Hash với dữ liệu trong DB;
+        
+        if (Khớp mật khẩu?) then (Đúng)
+            :Tạo Token phiên đăng nhập;
+            :Phân quyền;
+            :Chuyển hướng đến màn hình chính;
+        else (Sai)
+            :Thông báo "Sai mật khẩu";
+        endif
+    else (Không)
+        :Thông báo "Tài khoản không tồn tại";
+    endif
+else (Không)
+    :Thông báo "Vui lòng nhập đầy đủ thông tin";
+endif
+
+|Người dùng|
+stop
+@enduml

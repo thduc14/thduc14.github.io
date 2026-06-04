@@ -1,0 +1,70 @@
+@startuml Seq_GoQuyen
+autonumber "<b>##."
+skinparam sequenceMessageAlign center
+skinparam style strictuml
+
+actor "Ban tổ chức" as BTC
+boundary "QuanLyPhanQuyenForm" as UI
+control "PhanQuyenController" as SYS
+entity ": DATABASE" as DB
+
+' Chuyển tính năng tra cứu thành tùy chọn (Optional)
+opt Nếu BTC muốn tìm kiếm tài khoản cụ thể
+    BTC -> UI: Nhập từ khóa & Nhấn "Tìm kiếm"
+    activate UI
+    UI -> SYS: Yêu cầu tìm kiếm theo từ khóa
+    deactivate UI
+    activate SYS
+    SYS -> DB: Truy vấn(Từ khóa)
+    activate DB
+    DB --> SYS: Trả về kết quả
+    deactivate DB
+    SYS --> UI: Trả về danh sách kết quả
+    deactivate SYS
+    deactivate UI
+end
+
+
+BTC -> UI: Chọn Role muốn gỡ & Click "Gỡ quyền"
+activate UI
+UI -> UI: Hiển thị popup "Xác nhận gỡ quyền?"
+deactivate UI
+
+alt Chọn Hủy
+    BTC -> UI: Click "Hủy"
+    activate UI
+    UI --> BTC: Đóng popup
+    deactivate UI
+else Chọn Đồng ý
+    BTC -> UI: Click "Đồng ý"
+    activate UI
+    UI -> SYS: Yêu cầu gỡ quyền (AccountID, RoleID)
+    deactivate UI
+    activate SYS
+    
+    SYS -> DB: Kiểm tra Rule
+    deactivate SYS
+    activate DB
+    
+    DB --> SYS: Trả về kết quả Rule
+    deactivate DB
+    
+    alt Vi phạm Rule
+        SYS --> UI: Báo lỗi "Không thể gỡ quyền Admin cuối cùng"
+        activate UI
+        UI -> UI: Hiển thị thông báo lỗi
+        deactivate UI
+    else Thỏa mãn Rule
+        SYS -> DB: Delete khỏi bảng PHANQUYEN
+        activate DB
+        DB --> SYS: Xác nhận xóa thành công
+        deactivate DB
+        SYS --> UI: Thông báo "Gỡ quyền thành công"
+        activate UI
+        UI -> UI: Hiển thị thông báo thành công
+        deactivate UI
+    end
+    deactivate SYS
+end
+deactivate UI
+@enduml

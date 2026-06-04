@@ -1,0 +1,44 @@
+@startuml Act_QuanLyDonHang
+skinparam SwimlaneTitleFontColor #A9B0B7
+hide stereotype
+
+<style>
+activityDiagram {
+    activity {
+        BackgroundColor white
+        BorderColor black
+    }
+    .db {
+        RoundCorner 0
+    }
+}
+</style>
+
+|Ban tổ chức|
+start
+:Chọn chức năng "Quản lý đơn hàng";
+
+|Hệ thống|
+:Gửi yêu cầu lấy danh sách đơn hàng;
+
+|Cơ sở dữ liệu|
+:DONHANG; <<db>>
+
+|Hệ thống|
+:Hiển thị giao diện Quản lý đơn hàng\nvà nạp dữ liệu lên danh sách;
+
+|Ban tổ chức|
+:Xem danh sách thông tin đơn hàng;
+
+if (Thao tác tiếp theo?) then (Xem chi tiết)
+    :Kích hoạt Use Case\n"Xem chi tiết đơn hàng";
+    stop
+elseif (Tra cứu/Lọc) then (Tra cứu)
+    :Kích hoạt Use Case\n"Tra cứu đơn hàng";
+    stop
+else (Đóng giao diện)
+endif
+
+|Ban tổ chức|
+stop
+@enduml

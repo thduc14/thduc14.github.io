@@ -1,0 +1,42 @@
+@startuml Seq_GuiEmailQR
+autonumber "<b>##."
+skinparam sequenceMessageAlign center
+skinparam style strictuml
+
+actor "Hệ thống Bán Vé" as System
+control "NotificationService" as Notif
+entity ": ThanhToan" as DB
+actor "Hệ thống Email" as MailSystem
+
+System -> Notif: Thanh toán đơn hàng thành công
+activate Notif
+
+Notif -> Notif: Tạo mã QR cho từng vé
+deactivate Notif
+Notif -> DB: Lưu thông tin mã QR
+activate DB
+DB --> Notif: Xác nhận lưu
+deactivate DB
+
+Notif -> Notif: Xử lý Email Template (đính kèm QR)
+
+Notif -> MailSystem: Gọi API gửi Email 
+activate MailSystem
+
+alt Gửi Email thành công
+    MailSystem --> Notif: Response (Status: 200 OK)
+    Notif -> DB: Update trạng thái đơn hàng (EmailSent = True)
+    activate DB
+    DB --> Notif: OK
+    deactivate DB
+else Lỗi 
+    MailSystem --> Notif: Response (Status: 500 / Timeout)
+    Notif -> DB: Ghi Log Lỗi & Đưa vào hạng đợi thử lại
+    activate DB
+    DB --> Notif: OK
+    deactivate DB
+end
+
+deactivate MailSystem
+deactivate Notif
+@enduml

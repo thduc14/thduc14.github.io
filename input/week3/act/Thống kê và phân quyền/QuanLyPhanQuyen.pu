@@ -1,0 +1,45 @@
+@startuml Act_QuanLyPhanQuyen
+skinparam SwimlaneTitleFontColor #A9B0B7
+hide stereotype
+
+<style>
+activityDiagram {
+    activity {
+        BackgroundColor white
+        BorderColor black
+    }
+    .db {
+        RoundCorner 0
+    }
+}
+</style>
+
+|Ban tổ chức|
+start
+:Chọn chức năng "Quản lý phân quyền";
+
+|Hệ thống|
+:Gửi yêu cầu lấy danh sách tài khoản\nvà quyền hạn hiện tại;
+
+|Cơ sở dữ liệu|
+:TAIKHOAN; <<db>>
+:PHANQUYEN; <<db>>
+
+|Hệ thống|
+:Hiển thị giao diện Quản lý phân quyền\n(Danh sách tài khoản + Các Role đang có);
+
+|Ban tổ chức|
+:Xem danh sách phân quyền;
+
+if (Thao tác tiếp theo?) then (Gán quyền)
+    :Kích hoạt Use Case\n"Gán quyền";
+    stop
+elseif (Gỡ quyền) then (Gỡ quyền)
+    :Kích hoạt Use Case\n"Gỡ quyền";
+    stop
+else (Đóng giao diện)
+endif
+
+|Ban tổ chức|
+stop
+@enduml

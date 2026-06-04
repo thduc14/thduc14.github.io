@@ -1,0 +1,58 @@
+@startuml Act_GanQuyen
+skinparam SwimlaneTitleFontColor #A9B0B7
+hide stereotype
+
+<style>
+activityDiagram {
+    activity {
+        BackgroundColor white
+        BorderColor black
+    }
+    .db {
+        RoundCorner 0
+    }
+}
+</style>
+
+|Ban tổ chức|
+start
+:Bắt đầu Use Case Gán quyền;
+
+|Ban tổ chức|
+:Nhập từ khóa tìm kiếm (Tên/Email);
+
+|Hệ thống|
+:Lọc danh sách tài khoản;
+
+|Cơ sở dữ liệu|
+:NGUOIDUNG; <<db>>
+
+|Hệ thống|
+:Hiển thị kết quả tra cứu;
+
+|Ban tổ chức|
+:Chọn một tài khoản cụ thể;
+:Chọn Quyền muốn gán thêm;
+:Nhấn nút "Gán quyền";
+
+|Hệ thống|
+:Kiểm tra tài khoản đã có quyền này chưa?;
+
+|Hệ thống|
+if (Đã có quyền?) then (Có) 
+    |Hệ thống|
+    :Thông báo "Tài khoản đã sở hữu quyền này";
+else (Chưa)
+    |Hệ thống|
+    :Thông báo "Thêm quyền mới cho tài khoản";
+    |Cơ sở dữ liệu|
+    :PHANQUYEN; <<db>>
+    
+    |Hệ thống|
+    :Thông báo "Gán quyền thành công";
+    :Cập nhật lại danh sách trên giao diện;
+endif
+
+|Hệ thống|
+stop
+@enduml

@@ -1,0 +1,44 @@
+@startuml Act_XemBaoCaoThongKe
+skinparam SwimlaneTitleFontColor #A9B0B7
+hide stereotype
+
+<style>
+activityDiagram {
+    activity {
+        BackgroundColor white
+        BorderColor black
+    }
+    .db {
+        RoundCorner 0
+    }
+}
+</style>
+
+|Ban tổ chức|
+start
+:Chọn chức năng "Xem báo cáo thống kê";
+
+|Hệ thống|
+:Gửi yêu cầu tổng hợp dữ liệu báo cáo cơ bản;
+
+|Cơ sở dữ liệu|
+:GIAODICHTHANHTOAN; <<db>>
+:VE; <<db>>
+:GHENGOI; <<db>>
+
+
+|Hệ thống|
+:Hiển thị giao diện Báo cáo thống kê\n(Bảng số liệu tổng quan);
+
+|Ban tổ chức|
+:Xem dữ liệu báo cáo;
+
+if (Thao tác tiếp theo?) then (Xem phân tích hành vi)
+    :Kích hoạt Use Case\n"Xem dashboard phân tích hành vi";
+    stop
+else (Đóng giao diện)
+    :Đóng giao diện báo cáo thống kê;
+    stop
+endif
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml Seq_XemBaoCaoThongKe
+autonumber "<b>##."
+skinparam sequenceMessageAlign center
+skinparam style strictuml
+
+actor "Ban tổ chức" as BTC
+boundary "BaoCaoThongKeForm" as UI
+control "BaoCaoController" as SYS
+entity ": DATABASE" as DB
+
+BTC -> UI: Chọn chức năng "Xem báo cáo thống kê"
+activate UI
+
+UI -> SYS: Yêu cầu dữ liệu thống kê tổng quan
+deactivate UI
+activate SYS
+
+SYS -> DB: Query tổng doanh thu, số vé đã bán
+activate DB
+DB --> SYS: Trả về tập dữ liệu thống kê
+deactivate DB
+
+SYS --> UI: Trả về dữ liệu & render giao diện
+deactivate SYS
+
+activate UI
+UI -> UI: Hiển thị bảng báo cáo thống kê
+deactivate UI
+
+@enduml

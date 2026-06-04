@@ -1,0 +1,34 @@
+@startuml Act_QuetMaQR
+skinparam style strictuml
+skinparam DefaultFontName Arial
+
+|Nhân viên soát vé|
+start
+:Mở tính năng Quét QR trên App Mobile;
+:Đưa camera quét mã QR của khách;
+
+|Hệ thống (Mobile App)|
+:Giải mã chuỗi QR Code;
+:Kiểm tra tính hợp lệ của chuỗi (Format);
+
+if (Mã hợp lệ?) then (Có)
+    :Truy vấn mã QR trong Local Database (Offline Cache);
+    
+    if (Tìm thấy mã?) then (Có)
+        if (Trạng thái vé?) then (Chưa sử dụng)
+            :Cập nhật trạng thái "Đã Check-in" ở Local DB;
+            :Thông báo Xanh "Vé Hợp Lệ - Cho qua";
+
+        else (Đã sử dụng)
+            :Thông báo Đỏ "Vé đã được sử dụng";
+        endif
+    else (Không)
+        :Thông báo "Mã vé không tồn tại trong sự kiện này";
+    endif
+else (Không)
+    :Thông báo "Định dạng mã không hợp lệ";
+endif
+
+|Nhân viên soát vé|
+stop
+@enduml

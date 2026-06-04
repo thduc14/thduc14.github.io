@@ -1,0 +1,46 @@
+@startuml Act_XemDashboardHanhVi
+skinparam SwimlaneTitleFontColor #A9B0B7
+hide stereotype
+
+<style>
+activityDiagram {
+    activity {
+        BackgroundColor white
+        BorderColor black
+    }
+    .db {
+        RoundCorner 0
+    }
+}
+</style>
+
+|Ban tổ chức|
+start
+:Bắt đầu Use Case Xem dashboard\nphân tích hành vi;
+:Thiết lập bộ lọc\n(Sự kiện, Thời gian mở bán);
+:Nhấn "Phân tích";
+
+|Hệ thống|
+:Tiếp nhận yêu cầu phân tích;
+
+|Cơ sở dữ liệu|
+:GIAODICHTHANHTOAN; <<db>>
+:VE; <<db>>
+:GHENGOI; <<db>>
+|Hệ thống|
+:Xử lý số liệu và nội suy dữ liệu;
+:Khởi tạo các biểu đồ\n(Pie chart, Bar chart, Line chart...);
+:Hiển thị Dashboard phân tích trực quan;
+
+|Ban tổ chức|
+:Xem và tương tác với các biểu đồ;
+
+if (Thao tác khác?) then (Xuất báo cáo PDF)
+    |Hệ thống|
+    :Trích xuất biểu đồ ra file PDF;
+else (Không)
+endif
+
+|Ban tổ chức|
+stop
+@enduml

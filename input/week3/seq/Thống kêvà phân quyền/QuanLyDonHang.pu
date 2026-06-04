@@ -1,0 +1,30 @@
+@startuml Seq_QuanLyDonHang
+autonumber "<b>##."
+skinparam sequenceMessageAlign center
+skinparam style strictuml
+
+actor "Ban tổ chức" as BTC
+boundary "QuanLyDonHangForm" as UI
+control "DonHangController" as SYS
+entity ": DONHANG" as DB
+
+BTC -> UI: Chọn chức năng "Quản lý đơn hàng"
+activate UI
+
+UI -> SYS: Yêu cầu lấy danh sách đơn hàng
+deactivate UI
+activate SYS
+
+SYS -> DB: Select danh sách đơn hàng
+activate DB
+DB --> SYS: Trả về danh sách
+deactivate DB
+
+SYS --> UI: Trả về dữ liệu và render UI
+deactivate SYS
+activate UI
+
+UI -> UI: Hiển thị danh sách thông tin đơn hàng
+deactivate UI
+
+@enduml

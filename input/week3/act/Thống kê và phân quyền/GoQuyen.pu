@@ -1,0 +1,63 @@
+@startuml Act_GoQuyen
+skinparam SwimlaneTitleFontColor #A9B0B7
+hide stereotype
+
+<style>
+activityDiagram {
+    activity {
+        BackgroundColor white
+        BorderColor black
+    }
+    .db {
+        RoundCorner 0
+    }
+}
+</style>
+
+|Ban tổ chức|
+start
+:Bắt đầu Use Case Gỡ quyền;
+
+|Ban tổ chức|
+:Nhập từ khóa tìm kiếm (Tên/Email);
+
+|Hệ thống|
+:Lọc danh sách tài khoản;
+
+|Cơ sở dữ liệu|
+:NGUOIDUNG; <<db>>
+
+|Hệ thống|
+:Hiển thị kết quả tra cứu;
+
+|Ban tổ chức|
+:Chọn một tài khoản cụ thể;
+:Nhấn nút "Gỡ" tại Quyền (Role) tương ứng;
+
+|Hệ thống|
+:Hiển thị hộp thoại Xác nhận gỡ quyền;
+
+|Ban tổ chức|
+if (Xác nhận?) then (Đồng ý)
+    |Hệ thống|
+    :Kiểm tra quy tắc nghiệp vụ;
+    if (Hợp lệ?) then (Có)
+        |Hệ thống|
+        :Xóa bản ghi; 
+        |Cơ sở dữ liệu|
+        :PHANQUYEN; <<db>>
+        
+        |Hệ thống|
+        :Thông báo "Gỡ quyền thành công";
+        :Cập nhật lại danh sách;
+    else (Không)
+        :Thông báo "Không thể gỡ quyền này\ndo vi phạm quy tắc";
+    endif
+else (Hủy)
+    |Hệ thống|
+    :Đóng hộp thoại;
+endif
+
+|Ban tổ chức|
+stop
+@enduml

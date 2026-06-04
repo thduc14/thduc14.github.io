@@ -1,0 +1,53 @@
+@startuml Act_TaoTaiKhoan
+skinparam SwimlaneTitleFontColor #A9B0B7
+hide stereotype
+
+<style>
+activityDiagram {
+    activity {
+        BackgroundColor white
+        BorderColor black
+    }
+    .db {
+        RoundCorner 0
+    }
+}
+</style>
+
+|Ban tổ chức|
+start
+:Chọn "Tạo tài khoản mới" từ màn hình Quản lý;
+
+|Hệ thống|
+:Hiển thị Form Tạo tài khoản;
+
+|Ban tổ chức|
+:Nhập thông tin tài khoản\n(Tên, Email, Mật khẩu, Vai trò);
+:Nhấn nút "Lưu";
+
+|Hệ thống|
+:Kiểm tra tính hợp lệ của dữ liệu;
+
+if (Dữ liệu hợp lệ?) then (Hợp lệ)
+    :Kiểm tra trùng lặp (Email/Username);
+    
+    |Hệ thống|
+    if (Đã tồn tại?) then (Có)
+        |Hệ thống|
+        :Hiển thị thông báo "Tài khoản đã tồn tại";
+    else (Không)
+        |Cơ sở dữ liệu|
+        :NGUOIDUNG; <<db>>
+        
+        |Hệ thống|
+        :Thông báo "Tạo tài khoản thành công";
+        :Đóng Form, tải lại danh sách;
+    endif
+else (Không hợp lệ)
+    |Hệ thống|
+    :Hiển thị thông báo lỗi nhập liệu;
+endif
+
+|Ban tổ chức|
+stop
+@enduml

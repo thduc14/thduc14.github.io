@@ -1,0 +1,43 @@
+@startuml Act_GuiEmailQR
+skinparam SwimlaneTitleFontColor #A9B0B7
+hide stereotype
+
+<style>
+activityDiagram {
+    activity {
+        BackgroundColor white
+        BorderColor black
+    }
+    .db {
+        RoundCorner 0
+    }
+}
+</style>
+
+|Hệ thống Bán vé|
+start
+:Nhận sự kiện "Thanh toán thành công";
+:Tạo mã QR cho các vé trong đơn hàng;
+:Lưu mã QR vào Cơ sở dữ liệu; <<db>>
+:Tạo nội dung Email kèm mã QR;
+:Đẩy yêu cầu gửi Email vào Hàng đợi;
+
+|Hệ thống Email|
+:Nhận yêu cầu gửi Email từ Hàng đợi;
+:Phân giải địa chỉ Email khách hàng;
+:Thực hiện gửi Email qua giao thức SMTP;
+
+if (Gửi thành công?) then (Có)
+    :Phản hồi "Sent Successfully";
+    |Hệ thống Bán vé|
+    :Cập nhật trạng thái "Đã gửi Email" vào DB; <<db>>
+else (Không)
+    |Hệ thống Email|
+    :Phản hồi "Failed to send";
+    |Hệ thống Bán vé|
+    :Đưa vào danh sách Retry;
+    :Ghi log lỗi hệ thống;
+endif
+
+stop
+@enduml
